@@ -18,8 +18,11 @@
             var regex = /([/]sa|[/]bh|[/]en|[/]ae|[/]ar)/g;
             var found = paragraph.replace(regex, "/escWord");
             var campurl = found.replace("/escWord/escWord", "/[[COUNTRY_CODE]]/[[LANG_CODE]]");
-            document.getElementById("url").innerHTML = campurl;
-            console.log(campurl);
+            var e = document.getElementById("ddlViewBy");
+            var launchcode = e.options[e.selectedIndex].text;
+            var launchurl = campurl.replace("https", launchcode);
+            document.getElementById("url").innerHTML = launchurl;
+            console.log(launchurl);
             myFunction2(campurl);
             // expected output: Array ["T", "I"]
         }
@@ -29,7 +32,8 @@
             var e = document.getElementById("ddlViewBy");
             var launchcode = e.options[e.selectedIndex].text;
             var myUTM = document.getElementById("utm").value;
-            var launchurl = rep.replace("https", launchcode);
+            // var launchurl = rep.replace("https", launchcode);
+            var launchurl = rep;
             var regex2 = /\?/g;
 
             var checker = rep.match(regex2);
