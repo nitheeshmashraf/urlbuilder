@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>URL Replacer</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+    <script>
+        function myFunction() {
+            // var paragraph = 'https://www.homeboxstores.com/ae/en/search?q=2%20seater%20sofa%3AallCategories%3Ahbxfurniture%3Aindex%3Adiscount';
+            var paragraph = document.getElementById("myText").value;
+            var regex = /([/]sa|[/]bh|[/]en|[/]ae|[/]ar)/g;
+            var found = paragraph.replace(regex, "/escWord");
+            var campurl = found.replace("/escWord/escWord", "/[[COUNTRY_CODE]]/[[LANG_CODE]]");
+            document.getElementById("url").innerHTML = campurl;
+            console.log(campurl);
+            myFunction2(campurl);
+            // expected output: Array ["T", "I"]
+        }
+
+        function myFunction2(rep) {
+            // var paragraph = 'https://www.homeboxstores.com/ae/en/search?q=2%20seater%20sofa%3AallCategories%3Ahbxfurniture%3Aindex%3Adiscount';
+            var e = document.getElementById("ddlViewBy");
+            var launchcode = e.options[e.selectedIndex].text;
+            var myUTM = document.getElementById("utm").value;
+            var launchurl = rep.replace("https", launchcode);
+            var regex2 = /\?/g;
+
+            var checker = rep.match(regex2);
+            var appendchar = '&';
+
+            if (checker == null) {
+                appendchar = '?';
+            }
+            var withutm = launchurl + appendchar + "utm_source=App&utm_medium=Push&utm_campaign=" + myUTM + "_[[COUNTRY_CODE]]_[[LANG_CODE]]";
+            document.getElementById("launchurl").innerHTML = withutm;
+            console.log(withutm);
+            // Myfunction2();
+            // expected output: Array ["T", "I"]
+        }
+
+        function selection() {
+            var e = document.getElementById("ddlViewBy");
+            var strUser = e.options[e.selectedIndex].text;
+            myFunction();
+        }
+
+
+        function copyToClipboard(flagg) {
+
+            var text = "You failed to click on the text";
+            if (flagg == '1') {
+                text = document.getElementById("url").textContent;
+
+            } else {
+                text = document.getElementById("launchurl").textContent;
+
+            }
+            var dummy = document.createElement("input");
+            document.body.appendChild(dummy);
+            dummy.setAttribute('value', text);
+            dummy.select();
+            document.execCommand("copy");
+            document.body.removeChild(dummy);
+
+
+        }
+        copyToClipboard('Hello, World!')
+    </script>
+</head>
+
+<body class="container-fluid">
+
+    <div class="container">
+        <br>
+        <select class="form-control" class="form-control" id="ddlViewBy" onChange="selection()">
+            <option>lmhomeboxae</option>
+            <option selected="selected">lmshoemartae</option>
+            <option>lmsplashae</option>
+            <option>lmhomecentreae</option>
+            <option>lmcentrepointae</option>
+            <option>lmlifestyleae</option>
+            <option>lmmaxae</option>
+            <option>lmbabyshopae</option>
+        </select>
+        <br>
+        <input class="form-control" type="text" id="myText" placeholder="URL">
+        <br>
+        <input class="form-control" type="text" id="utm" placeholder="campaignName">
+        <br>
+        <button class="form-control" onclick="myFunction()">Try it</button>
+        <br>
+        <p onclick="copyToClipboard('1')" id="url"></p>
+        <br>
+        <p onclick="copyToClipboard('2')" id="launchurl"></p>
+    </div>
+
+</body>
+
+</html>
