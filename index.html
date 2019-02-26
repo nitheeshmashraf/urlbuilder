@@ -18,7 +18,7 @@
         }
 
         .lesssize input{
-            width: 30%;
+            width: 20%;
             
         }
 
@@ -91,6 +91,19 @@
         .closebtn:hover {
             color: black;
         }
+        .button {
+  display: inline-block;
+  padding:10px;
+  cursor: pointer;
+  text-align: center;
+  text-decoration: none;
+  outline: none;
+  color: #fff;
+  background-color: #4CAF50;
+  border: none;
+  border-radius: 15px;
+}
+
     </style>
 
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
@@ -119,6 +132,7 @@
             $scope.selectionMade = function () {
 
 
+console.log("done");
 
                 var regex = /([/]sa|[/]bh|[/]en|[/]ae|[/]ar)/g;
                 var regex_appender = /\?/g;
@@ -177,7 +191,8 @@
 
             $scope.setdate= function(){
             $scope.CampaignName1 = "PP_"+$scope.day+$scope.month+$scope.year+"_";
-                
+            $scope.CampaignName = $scope.CampaignName1+$scope.CampaignName2;
+            
             }
 
 
@@ -217,15 +232,17 @@
         <div style="text-align: center;">
             <h1>URL Builder</h1>
         </div>
-       <div ng-click="editdate=!editdate" style="float:right;">
+       <div ng-click="editdate=!editdate;" style="float:right;" ng-hide="editdate">
 
            {{day+month+year}}
        </div>
-<div class="pure-form pure-form-aligned lesssize" ng-show="editdate">
-    <input class="form-control" type="text" ng-model="day" placeholder="Date" ng-change="setdate()">
+<div class="pure-form pure-form-aligned lesssize" style="float:right;" ng-show="editdate">
+    <input class="form-control" type="number" ng-model="day" placeholder="Date" ng-change="setdate()">
     <input class="form-control" type="text" ng-model="month" placeholder="Month" ng-change="setdate()">
-    <input class="form-control" type="text" ng-model="year" placeholder="Year" ng-change="setdate()">
+    <input class="form-control" type="number" ng-model="year" placeholder="Year" ng-change="setdate()">
+    <input type="button" class="button" value="done" ng-click="selectionMade();">
 </div>
+<br>
 
         <div class="pure-form pure-form-aligned" style="margin-top: 50px;">
             <div class="pure-control-group">
