@@ -10,7 +10,83 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://unpkg.com/purecss@1.0.0/build/pure-min.css" integrity="sha384-nn4HPE8lTHyVtfCBi5yW9d20FjT8BJwUXyWZT9InLYax14RDjBj46LmSztkmNP9w"
         crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css?family=Lato|Quicksand" rel="stylesheet">
+    <style>
+        input,
+        select {
+            width: 80%;
+        }
 
+        body {
+            font-family: 'Quicksand', sans-serif;
+            margin: 0px 100px 0px 100px;
+        }
+
+        span {
+            font-family: 'Lato', sans-serif;
+
+
+        }
+
+        .dimlabel {
+            font-weight: 500px;
+            font-size: 2em;
+            color: grey;
+        }
+        .fixed {
+  position: fixed;
+  top: 10px;
+  right: 20px;
+  float: right !important;
+} 
+        
+    </style>
+    <style>
+            .tooltip {
+              position: relative;
+              display: inline-block;
+              /* border-bottom: 1px dotted rgba(129, 227, 145, .5); */
+            }
+            
+            .tooltip .tooltiptext {
+              visibility: hidden;
+              width: 200px;
+              background-color: rgba(129, 227, 145, .5);
+              color: rgba(63,59,50,.5);
+              text-align: center;
+              border-radius: 6px;
+              padding: 5px 0;
+              position: absolute;
+              z-index: 1;
+              bottom: 100%;
+              left: 50%;
+              margin-left: -60px;
+              
+              /* Fade in tooltip - takes 1 second to go from 0% to 100% opac: */
+              opacity: 0;
+              transition: opacity 1s;
+            }
+            
+            .tooltip:hover .tooltiptext {
+              visibility: visible;
+              opacity: 1;
+            }
+            </style>
+    <style>
+        .alert {
+            padding: 20px;
+            background-color: rgba(129, 227, 145, .5);
+            color: rgba(63,59,50,.5);
+            font-weight: 500;
+            border-radius: 10px;
+        }
+
+       
+
+        .closebtn:hover {
+            color: black;
+        }
+    </style>
 
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
 
@@ -35,7 +111,7 @@
                 var regex_http = /(https:[/][/]|http:[/][/])/g;
                 var appendchar = '&';
                 var found_next = "";
-                var Launch_URL="";
+                var Launch_URL = "";
 
                 var found = $scope.baseUrl.replace(regex, "/escWord");
                 var found_appender = $scope.baseUrl.match(regex_appender);
@@ -62,7 +138,16 @@
 
                 $scope.Campaign_Url = $scope.tempCampaign_Url + appendchar + "utm_source=App&utm_medium=Push&utm_campaign=" + $scope.CampaignName + "_[[COUNTRY_CODE]]_[[LANG_CODE]]";
                 $scope.Launch_URL = $scope.tempCampaign_Url.replace(regex_http, $scope.Selected_Metatag + "://");
-                
+
+            };
+
+            $scope.prestine=function(){
+                $scope.Selected_Metatag = "";
+            $scope.baseUrl = "";
+            $scope.CampaignName = "";
+            $scope.Campaign_Url = "";
+            $scope.Launch_URL = "";
+            $scope.elementhide = true;
             };
 
 
@@ -73,7 +158,7 @@
 
     </script>
     <script>
-  
+
 
         function copyToClipboard(flagg) {
 
@@ -97,7 +182,12 @@
 
 <body ng-app="myApp" class="container-fluid">
 
+
     <div ng-controller="MyCtrl">
+        <div style="text-align: center;">
+            <h1>URL Builder</h1>
+        </div>
+       
 
 
         <div class="pure-form pure-form-aligned" style="margin-top: 50px;">
@@ -110,26 +200,39 @@
 
             <div class="pure-control-group">
                 <label for="URL">URL</label>
-                <input type="text" class="form-control" ng-model="baseUrl" ng-keyup="selectionMade();copyToClipboard('1');" id="urltype" placeholder="Paste the URL here">
+                <input type="text" class="form-control" ng-model="baseUrl" ng-keyup="selectionMade();copyToClipboard('1');" id="urltype"
+                    placeholder="Paste the URL here">
             </div>
 
             <div class="pure-control-group">
                 <label for="CampaignName">Campaign Name</label>
-                <input type="text" class="form-control" ng-model="CampaignName" ng-keyup="selectionMade();copyToClipboard('1');" id="utm" placeholder="Enter the campaign name here">
+                <input type="text" class="form-control" ng-model="CampaignName" ng-keyup="selectionMade();copyToClipboard('1');" id="utm"
+                    placeholder="Enter the campaign name here">
             </div>
 
-            <div class="pure-controls">
-                <label for="Campaign URL" class="pure-checkbox"> Launch Url</label>
-                <span onclick="copyToClipboard('1')" id="launchurl" for="" ng-hide="elementhide">{{Launch_URL}}</span>
+            <div class="pure-controls tooltip" onclick="copyToClipboard('1')">
+                <b>
+                    <label class="dimlabel" for="Campaign URL" class="pure-checkbox"> Launch Url</label>
+                </b>
+                <br>
+                <span id="launchurl" for="" style="background-color:rgba(216, 216, 216, 0.5);" ng-hide="elementhide">{{Launch_URL}}</span>
+                <span ng-hide="elementhide" class="tooltiptext">click on it to copy the url</span>
 
 
-            </div>
-            <div class="pure-controls">
-                <label for="Campaign URL" class="pure-checkbox">Campaign URL</label>
-                <span onclick="copyToClipboard('2')" id="url" for="" ng-hide="elementhide">{{Campaign_Url}}</span>
+            </div><br>
+            <div class="pure-controls tooltip" onclick="copyToClipboard('2')">
+                <b>
+                    <label class="dimlabel" for="Campaign URL" class="pure-checkbox">Campaign URL</label>
+                </b>
+                <br>
+                <span id="url" for="" style="background-color:rgba(216, 216, 216, 0.5);" ng-hide="elementhide">{{Campaign_Url}}</span>
+                <span ng-hide="elementhide" class="tooltiptext">click on it to copy the url</span>
 
             </div>
         </div>
+        <div ng-hide="elementhide" class="alert fixed" style="text-align: center;" ng-click="prestine()">
+                <strong>Clear all</strong>
+            </div>
     </div>
 
 </body>
