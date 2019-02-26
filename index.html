@@ -17,6 +17,11 @@
             width: 80%;
         }
 
+        .lesssize input{
+            width: 30%;
+            
+        }
+
         body {
             font-family: 'Quicksand', sans-serif;
             margin: 0px 100px 0px 100px;
@@ -95,12 +100,21 @@
         var app = angular.module("myApp", [])
         app.controller("MyCtrl", ['$scope', function ($scope) {
             $scope.metatag = ["lmhomeboxae", "lmshoemartae", "lmsplashae", "lmhomecentreae", "lmcentrepointae", "lmlifestyleae", "lmmaxae", "lmbabyshopae",];
+            var d = new Date();
+            $scope.day=d.getDate();
+            var months = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+            $scope.month= months[d.getMonth()];
+            $scope.year=d.getFullYear()-2000;
             $scope.Selected_Metatag = "";
             $scope.baseUrl = "";
+            $scope.CampaignName1 = "PP_"+$scope.day+$scope.month+$scope.year+"_";
+            $scope.CampaignName2 = "";
             $scope.CampaignName = "";
             $scope.Campaign_Url = "";
             $scope.Launch_URL = "";
             $scope.elementhide = true;
+            $scope.editdate=false;
+            
 
             $scope.selectionMade = function () {
 
@@ -112,14 +126,16 @@
                 var appendchar = '&';
                 var found_next = "";
                 var Launch_URL = "";
+                $scope.editdate=false;
 
                 var found = $scope.baseUrl.replace(regex, "/escWord");
                 var found_appender = $scope.baseUrl.match(regex_appender);
                 var found_http = $scope.baseUrl.match(regex_http);
+                $scope.CampaignName = $scope.CampaignName1+$scope.CampaignName2;
 
                 $scope.tempCampaign_Url = found.replace("/escWord/escWord", "/[[COUNTRY_CODE]]/[[LANG_CODE]]");
 
-                if ($scope.baseUrl != "" && $scope.CampaignName != "" && $scope.Selected_Metatag != "") {
+                if ($scope.baseUrl != "" && $scope.CampaignName2 != "" && $scope.Selected_Metatag != "") {
                     $scope.elementhide = false;
 
                 } else {
@@ -148,7 +164,21 @@
             $scope.Campaign_Url = "";
             $scope.Launch_URL = "";
             $scope.elementhide = true;
+            $scope.day=d.getDate();
+            var months = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+            $scope.month= months[d.getMonth()];
+            $scope.year=d.getFullYear()-2000;
+            $scope.CampaignName1 = "PP_"+$scope.day+$scope.month+$scope.year+"_";
+            $scope.CampaignName2 = "";
+            $scope.CampaignName = "";
+            $scope.editdate=false;
+            
             };
+
+            $scope.setdate= function(){
+            $scope.CampaignName1 = "PP_"+$scope.day+$scope.month+$scope.year+"_";
+                
+            }
 
 
         }]);
@@ -187,8 +217,15 @@
         <div style="text-align: center;">
             <h1>URL Builder</h1>
         </div>
-       
+       <div ng-click="editdate=!editdate" style="float:right;">
 
+           {{day+month+year}}
+       </div>
+<div class="pure-form pure-form-aligned lesssize" ng-show="editdate">
+    <input class="form-control" type="text" ng-model="day" placeholder="Date" ng-change="setdate()">
+    <input class="form-control" type="text" ng-model="month" placeholder="Month" ng-change="setdate()">
+    <input class="form-control" type="text" ng-model="year" placeholder="Year" ng-change="setdate()">
+</div>
 
         <div class="pure-form pure-form-aligned" style="margin-top: 50px;">
             <div class="pure-control-group">
@@ -206,7 +243,7 @@
 
             <div class="pure-control-group">
                 <label for="CampaignName">Campaign Name</label>
-                <input type="text" class="form-control" ng-model="CampaignName" ng-keyup="selectionMade();copyToClipboard('1');" id="utm"
+                <input type="text" class="form-control" ng-model="CampaignName2" ng-keyup="selectionMade();copyToClipboard('1');" id="utm"
                     placeholder="Enter the campaign name here">
             </div>
 
