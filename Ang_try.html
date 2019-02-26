@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>URL Replacer</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://unpkg.com/purecss@1.0.0/build/pure-min.css" integrity="sha384-nn4HPE8lTHyVtfCBi5yW9d20FjT8BJwUXyWZT9InLYax14RDjBj46LmSztkmNP9w"
+        crossorigin="anonymous">
+
+
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+
+    <script>
+
+        var app = angular.module("myApp", [])
+        app.controller("MyCtrl", ['$scope', function ($scope) {
+            $scope.metatag = ["lmhomeboxae", "lmshoemartae", "lmsplashae", "lmhomecentreae", "lmcentrepointae", "lmlifestyleae", "lmmaxae", "lmbabyshopae",];
+            $scope.Selected_Metatag = "";
+            $scope.baseUrl = "";
+            $scope.CampaignName = "";
+            $scope.Campaign_Url = "";
+            $scope.Launch_URL = "";
+            $scope.elementhide = true;
+
+            $scope.selectionMade = function () {
+
+
+
+                var regex = /([/]sa|[/]bh|[/]en|[/]ae|[/]ar)/g;
+                var regex_appender = /\?/g;
+                var regex_http = /(https:[/][/]|http:[/][/])/g;
+                var appendchar = '&';
+                var found_next = "";
+                var Launch_URL="";
+
+                var found = $scope.baseUrl.replace(regex, "/escWord");
+                var found_appender = $scope.baseUrl.match(regex_appender);
+                var found_http = $scope.baseUrl.match(regex_http);
+
+                $scope.tempCampaign_Url = found.replace("/escWord/escWord", "/[[COUNTRY_CODE]]/[[LANG_CODE]]");
+
+                if ($scope.baseUrl != "" && $scope.CampaignName != "" && $scope.Selected_Metatag != "") {
+                    $scope.elementhide = false;
+
+                } else {
+
+                    $scope.elementhide = true;
+                }
+
+                if (found_appender == null) {
+                    appendchar = '?';
+                }
+
+                if (found_http == null) {
+                    $scope.tempCampaign_Url = "https://" + $scope.baseUrl;
+                }
+
+
+                $scope.Campaign_Url = $scope.tempCampaign_Url + appendchar + "utm_source=App&utm_medium=Push&utm_campaign=" + $scope.CampaignName + "_[[COUNTRY_CODE]]_[[LANG_CODE]]";
+                $scope.Launch_URL = $scope.tempCampaign_Url.replace(regex_http, $scope.Selected_Metatag + "://");
+                
+            };
+
+
+        }]);
+
+
+
+
+    </script>
+    <script>
+  
+
+        function copyToClipboard(flagg) {
+
+            var text = "You failed to click on the text";
+            if (flagg == '2') {
+                text = document.getElementById("url").textContent;
+
+            } else {
+                text = document.getElementById("launchurl").textContent;
+
+            }
+            var dummy = document.createElement("input");
+            document.body.appendChild(dummy);
+            dummy.setAttribute('value', text);
+            dummy.select();
+            document.execCommand("copy");
+            document.body.removeChild(dummy);
+        }
+    </script>
+</head>
+
+<body ng-app="myApp" class="container-fluid">
+
+    <div ng-controller="MyCtrl">
+
+
+        <div class="pure-form pure-form-aligned" style="margin-top: 50px;">
+            <div class="pure-control-group">
+                <label for="Launch_tag">Launch tag</label>
+                <select class="form-control" ng-model="Selected_Metatag" ng-change="selectionMade();copyToClipboard('1');">
+                    <option ng-repeat="x in metatag">{{x}}</option>
+                </select>
+            </div>
+
+            <div class="pure-control-group">
+                <label for="URL">URL</label>
+                <input type="text" class="form-control" ng-model="baseUrl" ng-keyup="selectionMade();copyToClipboard('1');" id="urltype" placeholder="Paste the URL here">
+            </div>
+
+            <div class="pure-control-group">
+                <label for="CampaignName">Campaign Name</label>
+                <input type="text" class="form-control" ng-model="CampaignName" ng-keyup="selectionMade();copyToClipboard('1');" id="utm" placeholder="Enter the campaign name here">
+            </div>
+
+            <div class="pure-controls">
+                <label for="Campaign URL" class="pure-checkbox"> Launch Url</label>
+                <span onclick="copyToClipboard('1')" id="launchurl" for="" ng-hide="elementhide">{{Launch_URL}}</span>
+
+
+            </div>
+            <div class="pure-controls">
+                <label for="Campaign URL" class="pure-checkbox">Campaign URL</label>
+                <span onclick="copyToClipboard('2')" id="url" for="" ng-hide="elementhide">{{Campaign_Url}}</span>
+
+            </div>
+        </div>
+    </div>
+
+</body>
+
+</html>

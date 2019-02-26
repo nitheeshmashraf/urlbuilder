@@ -10,7 +10,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+  
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
     <script>
         function myFunction() {
             // var paragraph = 'https://www.homeboxstores.com/ae/en/search?q=2%20seater%20sofa%3AallCategories%3Ahbxfurniture%3Aindex%3Adiscount';
@@ -75,11 +77,49 @@
 
 
         }
-        copyToClipboard('Hello, World!')
+
+
+        //setup before functions
+var typingTimer;                //timer identifier
+var doneTypingInterval = 1;  //time in ms, 5 second for example
+var $input = $('#myText');
+var $input2 = $('#utm');
+
+//on keyup, start the countdown
+$input.on('keyup', function () {
+  clearTimeout(typingTimer);
+  typingTimer = setTimeout(doneTyping, doneTypingInterval);
+});
+
+//on keydown, clear the countdown 
+$input.on('keydown', function () {
+  clearTimeout(typingTimer);
+});
+
+//on keyup, start the countdown
+$input2.on('keyup', function () {
+  clearTimeout(typingTimer);
+  typingTimer = setTimeout(doneTyping, doneTypingInterval);
+});
+
+//on keydown, clear the countdown 
+$input2.on('keydown', function () {
+  clearTimeout(typingTimer);
+});
+
+//user is "finished typing," do something
+function doneTyping () {
+  //do something
+  myFunction();
+  copyToClipboard('1');
+}
+        
     </script>
 </head>
 
 <body class="container-fluid">
+<div ng-app="my-app">
+
 
     <div class="container">
         <br>
@@ -94,17 +134,32 @@
             <option>lmbabyshopae</option>
         </select>
         <br>
-        <input class="form-control" type="text" id="myText" placeholder="URL">
+        <input onchange="myFunction()" class="form-control" type="text" id="myText" placeholder="URL">
         <br>
-        <input class="form-control" type="text" id="utm" placeholder="campaignName">
+        <input onchange="myFunction()" class="form-control" type="text" id="utm" placeholder="campaignName">
         <br>
-        <button class="form-control" onclick="myFunction()">Try it</button>
+        <div class="container-fluid">
+
+            <!-- <table width=100% style="vertical-align: center">
+                <tr>
+                    <td width=50%>
+            <button type="button" style="width: 30%" class="form-control btn btn-success" onclick="myFunction()">Try it</button>
+                        
+                    </td>
+                    <td width=50%>
+            <button type="button" style="width: 30%; margin-left: " class="form-control btn btn-success" onclick="prestine()">clear</button>
+                        
+                    </td>
+                </tr>
+            </table> -->
+
+        </div>
         <br>
         <p onclick="copyToClipboard('1')" id="url"></p>
         <br>
         <p onclick="copyToClipboard('2')" id="launchurl"></p>
     </div>
-
+</div>
 </body>
 
 </html>
