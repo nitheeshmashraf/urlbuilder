@@ -1,0 +1,94 @@
+ 
+        input,
+        select {
+            width: 80%;
+        }
+
+        .lesssize input {
+            width: 20%;
+
+        }
+
+        body {
+            font-family: 'Quicksand', sans-serif;
+            margin: 0px 100px 0px 100px;
+        }
+
+        span {
+            font-family: 'Lato', sans-serif;
+
+
+        }
+
+        .dimlabel {
+            font-weight: 500px;
+            font-size: 2em;
+            color: grey;
+        }
+
+        .fixed {
+            position: fixed;
+            top: 10px;
+            right: 20px;
+            float: right !important;
+        }
+    
+    
+        .tooltip {
+            position: relative;
+            display: inline-block;
+            /* border-bottom: 1px dotted rgba(129, 227, 145, .5); */
+        }
+
+        .tooltip .tooltiptext {
+            visibility: hidden;
+            width: 200px;
+            background-color: rgba(129, 227, 145, .5);
+            color: rgba(63, 59, 50, .5);
+            text-align: center;
+            border-radius: 6px;
+            padding: 5px 0;
+            position: absolute;
+            z-index: 1;
+            bottom: 100%;
+            left: 50%;
+            margin-left: -60px;
+
+            /* Fade in tooltip - takes 1 second to go from 0% to 100% opac: */
+            opacity: 0;
+            transition: opacity 1s;
+        }
+
+        .tooltip:hover .tooltiptext {
+            visibility: visible;
+            opacity: 1;
+        }
+    
+    
+        .alert {
+            padding: 20px;
+            background-color: rgba(129, 227, 145, .5);
+            color: rgba(63, 59, 50, .5);
+            font-weight: 500;
+            border-radius: 10px;
+        }
+
+
+
+        .closebtn:hover {
+            color: black;
+        }
+
+        .button {
+            display: inline-block;
+            padding: 10px;
+            cursor: pointer;
+            text-align: center;
+            text-decoration: none;
+            outline: none;
+            color: #fff;
+            background-color: #4CAF50;
+            border: none;
+            border-radius: 15px;
+        }
+    
