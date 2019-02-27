@@ -89,7 +89,24 @@ app.controller("MyCtrl", ['$scope', function ($scope) {
 
 
 app.controller("CountCtrl", ['$scope', function ($scope) {
+    
+    $scope.copyToClipboard=function(flagg){
+        var text = "You failed to click on the text";
+        if (flagg == '1') {
+            text = document.getElementById("title").textContent;
 
-    $scope.testword = "tested ok";
+        } else {
+            text = document.getElementById("description").textContent;
+
+        }
+        var dummy = document.createElement("input");
+        document.body.appendChild(dummy);
+        dummy.setAttribute('value', text);
+        dummy.select();
+        document.execCommand("copy");
+        document.body.removeChild(dummy);
+
+    }
+
 }]);
 

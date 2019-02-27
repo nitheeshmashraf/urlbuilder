@@ -17,11 +17,18 @@
     <script src="./js/allDump.js"></script>
 </head>
 
-<body ng-app="myApp" class="container-fluid">
+<body ng-app="myApp" class="container-fluid" ng-init="showurlbuilder=true">
+       
+    <div style="text-align: right;" >
+            <h3 ng-click="showurlbuilder=true;showcharcounter=false" ng-hide="showurlbuilder">URL Builder</h3>
+       
+                <h3 ng-click="showcharcounter=true;showurlbuilder=false" ng-hide="showcharcounter">Char Counter</h3>
+            </div>
 
-    <div ng-include="'views/charcounter.htm'"></div>
 
-    <div ng-controller="MyCtrl">
+    <div ng-show="showcharcounter" ng-include="'views/charcounter.htm'"></div>
+
+    <div ng-show="showurlbuilder" ng-controller="MyCtrl">
         <div style="text-align: center;">
             <h1>URL Builder</h1>
         </div>
