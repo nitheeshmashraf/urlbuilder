@@ -16,23 +16,17 @@
         select {
             width: 80%;
         }
-
         .lesssize input{
             width: 20%;
             
         }
-
         body {
             font-family: 'Quicksand', sans-serif;
             margin: 0px 100px 0px 100px;
         }
-
         span {
             font-family: 'Lato', sans-serif;
-
-
         }
-
         .dimlabel {
             font-weight: 500px;
             font-size: 2em;
@@ -85,9 +79,7 @@
             font-weight: 500;
             border-radius: 10px;
         }
-
        
-
         .closebtn:hover {
             color: black;
         }
@@ -103,13 +95,11 @@
   border: none;
   border-radius: 15px;
 }
-
     </style>
 
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
 
     <script>
-
         var app = angular.module("myApp", [])
         app.controller("MyCtrl", ['$scope', function ($scope) {
             $scope.metatag = ["lmhomeboxae", "lmshoemartae", "lmsplashae", "lmhomecentreae", "lmcentrepointae", "lmlifestyleae", "lmmaxae", "lmbabyshopae",];
@@ -120,6 +110,9 @@
             $scope.year=d.getFullYear()-2000;
             $scope.Selected_Metatag = "";
             $scope.baseUrl = "";
+            if($scope.day<10){
+                $scope.day='0'+$scope.day;
+            }
             $scope.CampaignName1 = "PP_"+$scope.day+$scope.month+$scope.year+"_";
             $scope.CampaignName2 = "";
             $scope.CampaignName = "";
@@ -128,12 +121,8 @@
             $scope.elementhide = true;
             $scope.editdate=false;
             
-
             $scope.selectionMade = function () {
-
-
 console.log("done");
-
                 var regex = /([/]sa|[/]bh|[/]en|[/]ae|[/]ar)/g;
                 var regex_appender = /\?/g;
                 var regex_http = /(https:[/][/]|http:[/][/])/g;
@@ -141,36 +130,25 @@ console.log("done");
                 var found_next = "";
                 var Launch_URL = "";
                 $scope.editdate=false;
-
                 var found = $scope.baseUrl.replace(regex, "/escWord");
                 var found_appender = $scope.baseUrl.match(regex_appender);
                 var found_http = $scope.baseUrl.match(regex_http);
                 $scope.CampaignName = $scope.CampaignName1+$scope.CampaignName2;
-
                 $scope.tempCampaign_Url = found.replace("/escWord/escWord", "/[[COUNTRY_CODE]]/[[LANG_CODE]]");
-
                 if ($scope.baseUrl != "" && $scope.CampaignName2 != "" && $scope.Selected_Metatag != "") {
                     $scope.elementhide = false;
-
                 } else {
-
                     $scope.elementhide = true;
                 }
-
                 if (found_appender == null) {
                     appendchar = '?';
                 }
-
                 if (found_http == null) {
                     $scope.tempCampaign_Url = "https://" + $scope.baseUrl;
                 }
-
-
                 $scope.Campaign_Url = $scope.tempCampaign_Url + appendchar + "utm_source=App&utm_medium=Push&utm_campaign=" + $scope.CampaignName + "_[[COUNTRY_CODE]]_[[LANG_CODE]]";
                 $scope.Launch_URL = $scope.tempCampaign_Url.replace(regex_http, $scope.Selected_Metatag + "://");
-
             };
-
             $scope.prestine=function(){
                 $scope.Selected_Metatag = "";
             $scope.baseUrl = "";
@@ -179,41 +157,36 @@ console.log("done");
             $scope.Launch_URL = "";
             $scope.elementhide = true;
             $scope.day=d.getDate();
+            
             var months = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
             $scope.month= months[d.getMonth()];
             $scope.year=d.getFullYear()-2000;
+            if($scope.day<10){
+                $scope.day='0'+$scope.day;
+            }
             $scope.CampaignName1 = "PP_"+$scope.day+$scope.month+$scope.year+"_";
             $scope.CampaignName2 = "";
             $scope.CampaignName = "";
             $scope.editdate=false;
             
             };
-
             $scope.setdate= function(){
+                if($scope.day<10){
+                $scope.day='0'+$scope.day;
+            }
             $scope.CampaignName1 = "PP_"+$scope.day+$scope.month+$scope.year+"_";
             $scope.CampaignName = $scope.CampaignName1+$scope.CampaignName2;
             
             }
-
-
         }]);
-
-
-
-
     </script>
     <script>
-
-
         function copyToClipboard(flagg) {
-
             var text = "You failed to click on the text";
             if (flagg == '2') {
                 text = document.getElementById("url").textContent;
-
             } else {
                 text = document.getElementById("launchurl").textContent;
-
             }
             var dummy = document.createElement("input");
             document.body.appendChild(dummy);
