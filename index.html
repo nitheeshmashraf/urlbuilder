@@ -110,8 +110,10 @@
             $scope.year=d.getFullYear()-2000;
             $scope.Selected_Metatag = "";
             $scope.baseUrl = "";
-            if($scope.day<10){
+            var checkDate=0;
+            if($scope.day<10&&checkDate!=$scope.day){
                 $scope.day='0'+$scope.day;
+                checkDate=$scope.day;
             }
             $scope.CampaignName1 = "PP_"+$scope.day+$scope.month+$scope.year+"_";
             $scope.CampaignName2 = "";
@@ -161,8 +163,9 @@ console.log("done");
             var months = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
             $scope.month= months[d.getMonth()];
             $scope.year=d.getFullYear()-2000;
-            if($scope.day<10){
+            if($scope.day<10&&checkDate!=$scope.day){
                 $scope.day='0'+$scope.day;
+                checkDate=$scope.day;
             }
             $scope.CampaignName1 = "PP_"+$scope.day+$scope.month+$scope.year+"_";
             $scope.CampaignName2 = "";
@@ -171,8 +174,9 @@ console.log("done");
             
             };
             $scope.setdate= function(){
-                if($scope.day<10){
+                if($scope.day<10&&checkDate!=$scope.day){
                 $scope.day='0'+$scope.day;
+                checkDate=$scope.day;
             }
             $scope.CampaignName1 = "PP_"+$scope.day+$scope.month+$scope.year+"_";
             $scope.CampaignName = $scope.CampaignName1+$scope.CampaignName2;
