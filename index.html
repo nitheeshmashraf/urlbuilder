@@ -185,9 +185,12 @@ console.log("done");
             var text = "You failed to click on the text";
             if (flagg == '2') {
                 text = document.getElementById("url").textContent;
-            } else {
+            } else if(flagg == '1') {
                 text = document.getElementById("launchurl").textContent;
+            }else{
+                text = document.getElementById("Campaign_Name").textContent;                
             }
+
             var dummy = document.createElement("input");
             document.body.appendChild(dummy);
             dummy.setAttribute('value', text);
@@ -254,6 +257,15 @@ console.log("done");
                 <br>
                 <span id="url" for="" style="background-color:rgba(216, 216, 216, 0.5);" ng-hide="elementhide">{{Campaign_Url}}</span>
                 <span ng-hide="elementhide" class="tooltiptext">click on it to copy the url</span>
+
+            </div><br>
+            <div class="pure-controls tooltip" onclick="copyToClipboard('3')">
+                <b>
+                    <label class="dimlabel" for="Campaign Name" class="pure-checkbox">Campaign Name</label>
+                </b>
+                <br>
+                <span id="Campaign_Name" for="" style="background-color:rgba(216, 216, 216, 0.5);" ng-hide="elementhide">{{CampaignName}}</span>
+                <span ng-hide="elementhide" class="tooltiptext">click on it to copy the campaign name</span>
 
             </div>
         </div>
