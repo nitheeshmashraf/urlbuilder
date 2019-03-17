@@ -16,6 +16,7 @@ app.controller("MyCtrl", ['$scope', function ($scope) {
     $scope.Launch_URL = "";
     $scope.elementhide = true;
     $scope.editdate = false;
+    $scope.dateRange= $scope.day-7 + $scope.month + $scope.year+"|"+$scope.day-6 + $scope.month + $scope.year+"|"+$scope.day-5 + $scope.month + $scope.year+"|"+$scope.day-4 + $scope.month + $scope.year+"|"+$scope.day-3 + $scope.month + $scope.year+"|"+$scope.day-2 + $scope.month + $scope.year+"|"+$scope.day-1 + $scope.month + $scope.year;
 
 
     $scope.selectionMade = function () {
