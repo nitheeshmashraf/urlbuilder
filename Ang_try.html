@@ -22,11 +22,13 @@
     <div style="text-align: right;" >
             <h3 ng-click="showurlbuilder=true;showcharcounter=false" ng-hide="showurlbuilder">URL Builder</h3>
        
-                <h3 ng-click="showcharcounter=true;showurlbuilder=false" ng-hide="showcharcounter">Char Counter</h3>
+                <h3 ng-click="showcharcounter=true;showurlbuilder=false;showdaterange=false" ng-hide="showcharcounter">Char Counter</h3>
+                <h3 ng-click="showcharcounter=false;showdaterange=true;showurlbuilder=false" ng-hide="showdaterange">Date Range builder</h3>
             </div>
 
 
     <div ng-show="showcharcounter" ng-include="'views/charcounter.htm'"></div>
+    <div ng-show="showdaterange" ng-include="'views/daterangebuilder.htm'"></div>
 
     <div ng-show="showurlbuilder" ng-controller="MyCtrl">
         <div style="text-align: center;">
