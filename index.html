@@ -201,7 +201,12 @@ console.log("done");
                 text = document.getElementById("url").textContent;
             } else if(flagg == '1') {
                 text = document.getElementById("launchurl").textContent;
-            }else{
+            }
+            else if(flagg == '4') {
+                text = document.getElementById("launchurl_ter").textContent;
+            }else if(flagg == '5') {
+                text = document.getElementById("url_ter").textContent;
+            }            else{
                 text = document.getElementById("Campaign_Name").textContent;                
             }
 
@@ -289,21 +294,21 @@ console.log("done");
 
             </div><br>
 
-            <div class="pure-controls tooltip" >
+            <div class="pure-controls tooltip" onclick="copyToClipboard('4')">
                 <b>
                     <label class="dimlabel" for="Campaign URL" class="pure-checkbox">Launch_URL_Ter </label>
                 </b>
                 <br>
-                <span id="url" for="" style="background-color:rgba(216, 216, 216, 0.5);" ng-hide="elementhide">{{Launch_URL_Ter}}</span>
+                <span id="launchurl_ter" for="" style="background-color:rgba(216, 216, 216, 0.5);" ng-hide="elementhide">{{Launch_URL_Ter}}</span>
 
             </div><br>
 
-            <div class="pure-controls tooltip" >
+            <div class="pure-controls tooltip" onclick="copyToClipboard('5')">
                 <b>
                     <label class="dimlabel" for="Campaign URL" class="pure-checkbox">Campaign_Url_Ter </label>
                 </b>
                 <br>
-                <span id="url" for="" style="background-color:rgba(216, 216, 216, 0.5);" ng-hide="elementhide">{{Campaign_Url_Ter}}</span>
+                <span id="url_ter" for="" style="background-color:rgba(216, 216, 216, 0.5);" ng-hide="elementhide">{{Campaign_Url_Ter}}</span>
 
             </div>
         </div>
