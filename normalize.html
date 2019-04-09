@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>URL Replacer</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://unpkg.com/purecss@1.0.0/build/pure-min.css" integrity="sha384-nn4HPE8lTHyVtfCBi5yW9d20FjT8BJwUXyWZT9InLYax14RDjBj46LmSztkmNP9w"
+        crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css?family=Lato|Quicksand" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+    <link rel="stylesheet" href="./css/style.css">
+    <script src="./js/MyApp.js"></script>
+    <script src="./js/allDump.js"></script>
+</head>
+
+<body ng-app="myApp" class="container-fluid" ng-init="showurlbuilder=true">
+     <div ng-controller="NormalizeCtrl">
+<form ng-submit="norm_string()">
+<div class="pure-control-group">
+    <label for="string">String</label>
+    <input type="text" class="form-control" ng-model="message"  id="sentence"
+        placeholder="Paste/type the string here">
+</div>
+<br>
+<span onclick="copynewtoClipboard()" id="new_Sentence">{{new_string}}</span><br>
+
+</form>
+     </div>
+</body>
+
+</html>
