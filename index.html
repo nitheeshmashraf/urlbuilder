@@ -122,7 +122,10 @@
             $scope.Launch_URL = "";
             $scope.elementhide = true;
             $scope.editdate=false;
-            
+            $scope.countryccode="AE"
+    $scope.Launch_URL_Ter ="test";
+    $scope.Campaign_Url_Ter = "test1";
+
             $scope.selectionMade = function () {
 console.log("done");
                 var regex = /([/]sa|[/]bh|[/]en|[/]ae|[/]ar)/g;
@@ -132,6 +135,7 @@ console.log("done");
                 var found_next = "";
                 var Launch_URL = "";
                 $scope.editdate=false;
+        $scope.baseUrl_temp=$scope.baseUrl;
                 var found = $scope.baseUrl.replace(regex, "/escWord");
                 var found_appender = $scope.baseUrl.match(regex_appender);
                 var found_http = $scope.baseUrl.match(regex_http);
@@ -147,9 +151,14 @@ console.log("done");
                 }
                 if (found_http == null) {
                     $scope.tempCampaign_Url = "https://" + $scope.baseUrl;
+            $scope.baseUrl_temp = "https://" + $scope.baseUrl;
                 }
                 $scope.Campaign_Url = $scope.tempCampaign_Url + appendchar + "utm_source=App&utm_medium=Push&utm_campaign=" + $scope.CampaignName + "_[[COUNTRY_CODE]]_[[LANG_CODE]]";
                 $scope.Launch_URL = $scope.tempCampaign_Url.replace(regex_http, $scope.Selected_Metatag + "://");
+
+        $scope.Launch_URL_Ter = $scope.baseUrl_temp.replace(regex_http, $scope.Selected_Metatag + "://");
+        $scope.Campaign_Url_Ter = $scope.baseUrl_temp + appendchar + "utm_source=App&utm_medium=Push&utm_campaign=" + $scope.CampaignName + "_"+$scope.countryccode+"_EN";
+        
             };
             $scope.prestine=function(){
                 $scope.Selected_Metatag = "";
