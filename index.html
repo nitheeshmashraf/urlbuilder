@@ -253,6 +253,12 @@ console.log("done");
                     placeholder="Enter the campaign name here">
             </div>
 
+            <div class="pure-control-group">
+                <label for="URL">countrycode</label>
+                <input type="text" class="form-control" ng-model="countrycode" ng-keyup="selectionMade();copyToClipboard('1');" id="urltype"
+                    placeholder="Paste the URL here">
+            </div>
+
             <div class="pure-controls tooltip" onclick="copyToClipboard('1')">
                 <b>
                     <label class="dimlabel" for="Campaign URL" class="pure-checkbox"> Launch Url</label>
