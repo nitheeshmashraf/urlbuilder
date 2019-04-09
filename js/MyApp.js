@@ -16,7 +16,8 @@ app.controller("MyCtrl", ['$scope', function ($scope) {
     $scope.Launch_URL = "";
     $scope.elementhide = true;
     $scope.editdate = false;
-    $scope.dateRange= ($scope.day-7 )+ $scope.month + $scope.year+"|"+($scope.day-6 )+ $scope.month + $scope.year+"|"+($scope.day-5) + $scope.month + $scope.year+"|"+($scope.day-4) + $scope.month + $scope.year+"|"+($scope.day-3) + $scope.month + $scope.year+"|"+($scope.day-2) + $scope.month + $scope.year+"|"+($scope.day-1) + $scope.month + $scope.year;
+    $scope.dateRange = ($scope.day - 7) + $scope.month + $scope.year + "|" + ($scope.day - 6) + $scope.month + $scope.year + "|" + ($scope.day - 5) + $scope.month + $scope.year + "|" + ($scope.day - 4) + $scope.month + $scope.year + "|" + ($scope.day - 3) + $scope.month + $scope.year + "|" + ($scope.day - 2) + $scope.month + $scope.year + "|" + ($scope.day - 1) + $scope.month + $scope.year;
+    $scope.countryccode="AE"
 
 
     $scope.selectionMade = function () {
@@ -31,7 +32,7 @@ app.controller("MyCtrl", ['$scope', function ($scope) {
         var found_next = "";
         var Launch_URL = "";
         $scope.editdate = false;
-
+        $scope.baseUrl_temp=$scope.baseUrl;
         var found = $scope.baseUrl.replace(regex, "/escWord");
         var found_appender = $scope.baseUrl.match(regex_appender);
         var found_http = $scope.baseUrl.match(regex_http);
@@ -53,12 +54,16 @@ app.controller("MyCtrl", ['$scope', function ($scope) {
 
         if (found_http == null) {
             $scope.tempCampaign_Url = "https://" + $scope.baseUrl;
+            $scope.baseUrl_temp = "https://" + $scope.baseUrl;
         }
 
 
         $scope.Campaign_Url = $scope.tempCampaign_Url + appendchar + "utm_source=App&utm_medium=Push&utm_campaign=" + $scope.CampaignName + "_[[COUNTRY_CODE]]_[[LANG_CODE]]";
         $scope.Launch_URL = $scope.tempCampaign_Url.replace(regex_http, $scope.Selected_Metatag + "://");
-
+        
+        $scope.Launch_URL_Ter = $scope.baseUrl_temp.replace(regex_http, $scope.Selected_Metatag + "://");
+        $scope.Campaign_Url_Ter = $scope.baseUrl_temp + appendchar + "utm_source=App&utm_medium=Push&utm_campaign=" + $scope.CampaignName + "_"+$scope.countryccode+"_EN";
+        
     };
 
     $scope.prestine = function () {
@@ -90,8 +95,8 @@ app.controller("MyCtrl", ['$scope', function ($scope) {
 
 
 app.controller("CountCtrl", ['$scope', function ($scope) {
-    
-    $scope.copyToClipboard=function(flagg){
+
+    $scope.copyToClipboard = function (flagg) {
         var text = "You failed to click on the text";
         if (flagg == '1') {
             text = document.getElementById("title").textContent;
@@ -108,6 +113,36 @@ app.controller("CountCtrl", ['$scope', function ($scope) {
         document.body.removeChild(dummy);
 
     }
+
+}]);
+
+
+app.controller("NormalizeCtrl", ['$scope', function ($scope) {
+
+    $scope.message = "";
+    $scope.new_string = []
+    var k = 0;
+    String.prototype.capitalize = function () {
+        return this.charAt(0).toUpperCase() + this.slice(1);
+    }
+
+    $scope.norm_string = function () {
+        wordArray = $scope.message.split(' ');
+        console.log(wordArray);
+        console.log(wordArray.length);
+        while (k < wordArray.length) {
+            console.log(wordArray[k].capitalize());
+            $scope.new_string += wordArray[k].capitalize();
+            $scope.new_string += " ";
+            k++;
+        }
+        copynewtoClipboard()
+    }
+
+    
+
+
+    
 
 }]);
 
