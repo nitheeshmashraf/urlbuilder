@@ -18,8 +18,8 @@ app.controller("MyCtrl", ['$scope', function ($scope) {
     $scope.editdate = false;
     $scope.dateRange = ($scope.day - 7) + $scope.month + $scope.year + "|" + ($scope.day - 6) + $scope.month + $scope.year + "|" + ($scope.day - 5) + $scope.month + $scope.year + "|" + ($scope.day - 4) + $scope.month + $scope.year + "|" + ($scope.day - 3) + $scope.month + $scope.year + "|" + ($scope.day - 2) + $scope.month + $scope.year + "|" + ($scope.day - 1) + $scope.month + $scope.year;
     $scope.countryccode="AE"
-    $scope.Launch_URL_Ter ="";
-    $scope.Campaign_Url_Ter = "";
+    $scope.Launch_URL_Ter ="test";
+    $scope.Campaign_Url_Ter = "test1";
    
 
     $scope.selectionMade = function () {
