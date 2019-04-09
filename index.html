@@ -260,7 +260,7 @@ console.log("done");
             </div>
 
             <div class="pure-control-group">
-                <label for="URL">Country Code</label>
+                <label for="URL">Country Code ( fallback )</label>
                 <input type="text" class="form-control" ng-model="countryccode" ng-keyup="selectionMade();copyToClipboard('1');" id="countrycode"
                     placeholder="Paste the country code  here">
             </div>
@@ -293,6 +293,7 @@ console.log("done");
                 <span ng-hide="elementhide" class="tooltiptext">click on it to copy the campaign name</span>
 
             </div><br>
+            <label class="dimlabel" for="Campaign URL" class="pure-checkbox" style="font-size:50px ">Fall back </label>
 
             <div class="pure-controls tooltip" onclick="copyToClipboard('4')">
                 <b>
