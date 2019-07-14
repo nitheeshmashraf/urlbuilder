@@ -1,7 +1,7 @@
 
 var app = angular.module("myApp", [])
 app.controller("MyCtrl", ['$scope', function ($scope) {
-    $scope.metatag = ["lmhomeboxae", "lmshoemartae", "lmsplashae", "lmhomecentreae", "lmcentrepointae", "lmlifestyleae", "lmmaxae", "lmbabyshopae",];
+    $scope.metatag = ["lmhomeboxae", "lmshoemartae", "lmsplashae", "lmhomecentreae", "lmcentrepointae", "lmlifestyleae", "lmmaxae", "lmbabyshopae","lmmothercareae",];
     var d = new Date();
     $scope.day = d.getDate();
     var months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
