@@ -111,7 +111,7 @@
         var app = angular.module("myApp", [])
         app.controller("MyCtrl", ['$scope', function ($scope) {
             $scope.metatag = ["lmhomeboxae", "lmshoemartae", "lmsplashae", "lmhomecentreae", "lmcentrepointae", "lmlifestyleae", "lmmaxae", "lmbabyshopae", "lmmothercareae"];
-            $scope.hometag = ["homebox", "shoemart", "splash", "homecentre", "centrepointstores", "lifestyle", "max", "babyshop", "mothercare"];
+            $scope.hometag = ["homebox", "shoemart", "splash", "homecentre", "centrepoint", "lifestyle", "max", "babyshop", "mothercare"];
             var d = new Date();
             $scope.day = d.getDate();
             $scope.days=[01,02,03,04,05,06,07,08,09,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31];
@@ -167,7 +167,11 @@
                     
                 var found_http = $scope.baseUrl.match(regex_http);
                 $scope.CampaignName = $scope.CampaignName1 + $scope.CampaignName2;
-                $scope.tempCampaign_Url = found.replace("/escWord/escWord", "/[[COUNTRY_CODE]]/[[LANG_CODE]]");
+                if ($scope.Selected_Metatag == "lmcentrepointae") {
+                    $scope.tempCampaign_Url = found.replace("/escWord/escWord", "/{{UserAttribute['COUNTRY_CODE']}}/{{UserAttribute['LANG_CODE']}}");
+                } else {
+                    $scope.tempCampaign_Url = found.replace("/escWord/escWord", "/[[COUNTRY_CODE]]/[[LANG_CODE]]");
+                }
                 if ($scope.baseUrl != "" && $scope.CampaignName2 != "" && $scope.Selected_Metatag != "") {
                     $scope.elementhide = false;
                 } else {
@@ -180,8 +184,11 @@
                     $scope.tempCampaign_Url = "https://" + $scope.baseUrl;
                     $scope.baseUrl_temp = "https://" + $scope.baseUrl;
                 }
-                $scope.Campaign_Url = $scope.tempCampaign_Url + appendchar + "utm_source=App&utm_medium=Push&utm_campaign=" + $scope.CampaignName + "_[[COUNTRY_CODE]]_[[LANG_CODE]]";
-                $scope.Launch_URL = $scope.tempCampaign_Url.replace(regex_http, $scope.Selected_Metatag + "://");
+                if ($scope.Selected_Metatag == "lmcentrepointae") {
+                    $scope.Campaign_Url = $scope.tempCampaign_Url + appendchar + "utm_source=App&utm_medium=Push&utm_campaign=" + $scope.CampaignName + "_{{UserAttribute['COUNTRY_CODE']}}_{{UserAttribute['LANG_CODE']}}";
+                } else {
+                    $scope.Campaign_Url = $scope.tempCampaign_Url + appendchar + "utm_source=App&utm_medium=Push&utm_campaign=" + $scope.CampaignName + "_[[COUNTRY_CODE]]_[[LANG_CODE]]";
+                }$scope.Launch_URL = $scope.tempCampaign_Url.replace(regex_http, $scope.Selected_Metatag + "://");
 
                 $scope.Launch_URL_Ter = $scope.baseUrl_temp.replace(regex_http, $scope.Selected_Metatag + "://");
                 $scope.Campaign_Url_Ter = $scope.baseUrl_temp + appendchar + "utm_source=App&utm_medium=Push&utm_campaign=" + $scope.CampaignName + "_" + $scope.countryccode + "_EN";
