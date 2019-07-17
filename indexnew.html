@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>URL Replacer</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://unpkg.com/purecss@1.0.0/build/pure-min.css" integrity="sha384-nn4HPE8lTHyVtfCBi5yW9d20FjT8BJwUXyWZT9InLYax14RDjBj46LmSztkmNP9w"
+        crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css?family=Lato|Quicksand" rel="stylesheet">
+    <style>
+        input,
+        select {
+            width: 80%;
+        }
+        .lesssize input{
+            width: 20%;
+            
+        }
+        body {
+            font-family: 'Quicksand', sans-serif;
+            margin: 0px 100px 0px 100px;
+        }
+        span {
+            font-family: 'Lato', sans-serif;
+        }
+        .dimlabel {
+            font-weight: 500px;
+            font-size: 2em;
+            color: grey;
+        }
+        .fixed {
+  position: fixed;
+  top: 10px;
+  right: 20px;
+  float: right !important;
+} 
+        
+    </style>
+    <style>
+            .tooltip {
+              position: relative;
+              display: inline-block;
+              /* border-bottom: 1px dotted rgba(129, 227, 145, .5); */
+            }
+            
+            .tooltip .tooltiptext {
+              visibility: hidden;
+              width: 200px;
+              background-color: rgba(129, 227, 145, .5);
+              color: rgba(63,59,50,.5);
+              text-align: center;
+              border-radius: 6px;
+              padding: 5px 0;
+              position: absolute;
+              z-index: 1;
+              bottom: 100%;
+              left: 50%;
+              margin-left: -60px;
+              
+              /* Fade in tooltip - takes 1 second to go from 0% to 100% opac: */
+              opacity: 0;
+              transition: opacity 1s;
+            }
+            
+            .tooltip:hover .tooltiptext {
+              visibility: visible;
+              opacity: 1;
+            }
+            </style>
+    <style>
+        .alert {
+            padding: 20px;
+            background-color: rgba(129, 227, 145, .5);
+            color: rgba(63,59,50,.5);
+            font-weight: 500;
+            border-radius: 10px;
+        }
+       
+        .closebtn:hover {
+            color: black;
+        }
+        .button {
+  display: inline-block;
+  padding:10px;
+  cursor: pointer;
+  text-align: center;
+  text-decoration: none;
+  outline: none;
+  color: #fff;
+  background-color: #4CAF50;
+  border: none;
+  border-radius: 15px;
+}
+    </style>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+
+    <script>
+        var app = angular.module("myApp", [])
+        app.controller("MyCtrl", ['$scope', function ($scope) {
+            $scope.metatag = ["lmhomeboxae", "lmshoemartae", "lmsplashae", "lmhomecentreae", "lmcentrepointae", "lmlifestyleae", "lmmaxae", "lmbabyshopae","lmmothercareae"];
+            var d = new Date();
+            $scope.day=d.getDate();
+            var months = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+            $scope.month= months[d.getMonth()];
+            $scope.year=d.getFullYear()-2000;
+            $scope.Selected_Metatag = "";
+            $scope.baseUrl = "";
+            var checkDate=0;
+            if($scope.day<10&&checkDate!=$scope.day){
+                $scope.day='0'+$scope.day;
+                checkDate=$scope.day;
+            }
+            $scope.CampaignName1 = "PP_"+$scope.day+$scope.month+$scope.year+"_";
+            $scope.CampaignName2 = "";
+            $scope.CampaignName = "";
+            $scope.Campaign_Url = "";
+            $scope.Launch_URL = "";
+            $scope.elementhide = true;
+            $scope.editdate=false;
+            $scope.countryccode="AE";
+    $scope.Launch_URL_Ter ="test";
+    $scope.Campaign_Url_Ter = "test1";
+
+            $scope.selectionMade = function () {
+console.log("done");
+                var regex = /([/]sa|[/]bh|[/]en|[/]ae|[/]ar)/g;
+                var regex_appender = /\?/g;
+                var regex_http = /(https:[/][/]|http:[/][/])/g;
+                var appendchar = '&';
+                var found_next = "";
+                var Launch_URL = "";
+                $scope.editdate=false;
+        $scope.baseUrl_temp=$scope.baseUrl;
+                var found = $scope.baseUrl.replace(regex, "/escWord");
+                var found_appender = $scope.baseUrl.match(regex_appender);
+                var found_http = $scope.baseUrl.match(regex_http);
+                $scope.CampaignName = $scope.CampaignName1+$scope.CampaignName2;
+                $scope.tempCampaign_Url = found.replace("/escWord/escWord", "/[[COUNTRY_CODE]]/[[LANG_CODE]]");
+                if ($scope.baseUrl != "" && $scope.CampaignName2 != "" && $scope.Selected_Metatag != "") {
+                    $scope.elementhide = false;
+                } else {
+                    $scope.elementhide = true;
+                }
+                if (found_appender == null) {
+                    appendchar = '?';
+                }
+                if (found_http == null) {
+                    $scope.tempCampaign_Url = "https://" + $scope.baseUrl;
+            $scope.baseUrl_temp = "https://" + $scope.baseUrl;
+                }
+                $scope.Campaign_Url = $scope.tempCampaign_Url + appendchar + "utm_source=App&utm_medium=Push&utm_campaign=" + $scope.CampaignName + "_[[COUNTRY_CODE]]_[[LANG_CODE]]";
+                $scope.Launch_URL = $scope.tempCampaign_Url.replace(regex_http, $scope.Selected_Metatag + "://");
+
+        $scope.Launch_URL_Ter = $scope.baseUrl_temp.replace(regex_http, $scope.Selected_Metatag + "://");
+        $scope.Campaign_Url_Ter = $scope.baseUrl_temp + appendchar + "utm_source=App&utm_medium=Push&utm_campaign=" + $scope.CampaignName + "_"+$scope.countryccode+"_EN";
+        
+            };
+            $scope.prestine=function(){
+                $scope.Selected_Metatag = "";
+            $scope.baseUrl = "";
+            $scope.CampaignName = "";
+            $scope.Campaign_Url = "";
+            $scope.Launch_URL = "";
+            $scope.elementhide = true;
+            $scope.day=d.getDate();
+            
+            var months = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+            $scope.month= months[d.getMonth()];
+            $scope.year=d.getFullYear()-2000;
+            if($scope.day<10&&checkDate!=$scope.day){
+                $scope.day='0'+$scope.day;
+                checkDate=$scope.day;
+            }
+            $scope.CampaignName1 = "PP_"+$scope.day+$scope.month+$scope.year+"_";
+            $scope.CampaignName2 = "";
+            $scope.CampaignName = "";
+            $scope.editdate=false;
+            $scope.countryccode="AE";
+            
+            };
+            $scope.setdate= function(){
+                if($scope.day<10&&checkDate!=$scope.day){
+                $scope.day='0'+$scope.day;
+                checkDate=$scope.day;
+            }
+            $scope.CampaignName1 = "PP_"+$scope.day+$scope.month+$scope.year+"_";
+            $scope.CampaignName = $scope.CampaignName1+$scope.CampaignName2;
+            
+            }
+        }]);
+    </script>
+    <script>
+        function copyToClipboard(flagg) {
+            var text = "You failed to click on the text";
+            if (flagg == '2') {
+                text = document.getElementById("url").textContent;
+            } else if(flagg == '1') {
+                text = document.getElementById("launchurl").textContent;
+            }
+            else if(flagg == '4') {
+                text = document.getElementById("launchurl_ter").textContent;
+            }else if(flagg == '5') {
+                text = document.getElementById("url_ter").textContent;
+            }            else{
+                text = document.getElementById("Campaign_Name").textContent;                
+            }
+
+            var dummy = document.createElement("input");
+            document.body.appendChild(dummy);
+            dummy.setAttribute('value', text);
+            dummy.select();
+            document.execCommand("copy");
+            document.body.removeChild(dummy);
+        }
+    </script>
+</head>
+
+<body ng-app="myApp" class="container-fluid">
+
+
+    <div ng-controller="MyCtrl">
+        <div style="text-align: center;">
+            <h1>URL Builder</h1>
+        </div>
+       <div ng-click="editdate=!editdate;" style="float:right;" ng-hide="editdate">
+
+           {{day+month+year}}
+       </div>
+<div class="pure-form pure-form-aligned lesssize" style="float:right;" ng-show="editdate">
+    <input class="form-control" type="number" ng-model="day" placeholder="Date" ng-change="setdate()">
+    <input class="form-control" type="text" ng-model="month" placeholder="Month" ng-change="setdate()">
+    <input class="form-control" type="number" ng-model="year" placeholder="Year" ng-change="setdate()">
+    <input type="button" class="button" value="done" ng-click="selectionMade();">
+</div>
+<br>
+
+        <div class="pure-form pure-form-aligned" style="margin-top: 50px;">
+            <div class="pure-control-group">
+                <label for="Launch_tag">Launch tag</label>
+                <select class="form-control" ng-model="Selected_Metatag" ng-change="selectionMade();copyToClipboard('1');">
+                    <option ng-repeat="x in metatag">{{x}}</option>
+                </select>
+            </div>
+
+            <div class="pure-control-group">
+                <label for="URL">URL</label>
+                <input type="text" class="form-control" ng-model="baseUrl" ng-keyup="selectionMade();copyToClipboard('1');" id="urltype"
+                    placeholder="Paste the URL here">
+            </div>
+
+            <div class="pure-control-group">
+                <label for="CampaignName">Campaign Name</label>
+                <input type="text" class="form-control" ng-model="CampaignName2" ng-keyup="selectionMade();copyToClipboard('1');" id="utm"
+                    placeholder="Enter the campaign name here">
+            </div>
+
+            <div class="pure-control-group">
+                <label for="URL">Country Code ( fallback )</label>
+                <input type="text" class="form-control" ng-model="countryccode" ng-keyup="selectionMade();copyToClipboard('1');" id="countrycode"
+                    placeholder="Paste the country code  here">
+            </div>
+
+            <div class="pure-controls tooltip" onclick="copyToClipboard('1')">
+                <b>
+                    <label class="dimlabel" for="Campaign URL" class="pure-checkbox"> Launch Url</label>
+                </b>
+                <br>
+                <span id="launchurl" for="" style="background-color:rgba(216, 216, 216, 0.5);" ng-hide="elementhide">{{Launch_URL}}</span>
+                <span ng-hide="elementhide" class="tooltiptext">click on it to copy the url</span>
+
+
+            </div><br>
+            <div class="pure-controls tooltip" onclick="copyToClipboard('2')">
+                <b>
+                    <label class="dimlabel" for="Campaign URL" class="pure-checkbox">Campaign URL</label>
+                </b>
+                <br>
+                <span id="url" for="" style="background-color:rgba(216, 216, 216, 0.5);" ng-hide="elementhide">{{Campaign_Url}}</span>
+                <span ng-hide="elementhide" class="tooltiptext">click on it to copy the url</span>
+
+            </div><br>
+            <div class="pure-controls tooltip" onclick="copyToClipboard('3')">
+                <b>
+                    <label class="dimlabel" for="Campaign Name" class="pure-checkbox">Campaign Name</label>
+                </b>
+                <br>
+                <span id="Campaign_Name" for="" style="background-color:rgba(216, 216, 216, 0.5);" ng-hide="elementhide">{{CampaignName}}</span>
+                <span ng-hide="elementhide" class="tooltiptext">click on it to copy the campaign name</span>
+
+            </div>
+            <br>
+           
+            <div class="pure-controls tooltip" onclick="copyToClipboard('4')">
+                <b>
+                    <label class="dimlabel" for="Campaign URL" class="pure-checkbox">Launch_URL_Ter </label>
+                </b>
+                <br>
+                <span id="launchurl_ter" for="" style="background-color:rgba(216, 216, 216, 0.5);" ng-hide="elementhide">{{Launch_URL_Ter}}</span>
+
+            </div><br>
+
+            <div class="pure-controls tooltip" onclick="copyToClipboard('5')">
+                <b>
+                    <label class="dimlabel" for="Campaign URL" class="pure-checkbox">Campaign_Url_Ter </label>
+                </b>
+                <br>
+                <span id="url_ter" for="" style="background-color:rgba(216, 216, 216, 0.5);" ng-hide="elementhide">{{Campaign_Url_Ter}}</span>
+
+            </div>
+        </div>
+        <div ng-hide="elementhide" class="alert fixed" style="text-align: center;" ng-click="prestine()">
+                <strong>Clear all</strong>
+            </div>
+    </div>
+
+</body>
+
+</html>
