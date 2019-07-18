@@ -150,6 +150,7 @@
                 var found_next = "";
                 var Launch_URL = "";
                 $scope.editdate = false;
+                $scope.editmonth = false;
                 $scope.baseUrl_temp = $scope.baseUrl;
                 var found = $scope.baseUrl.replace(regex, "/escWord");
                 var found_appender = $scope.baseUrl.match(regex_appender);
@@ -225,7 +226,7 @@
                 }
                 $scope.CampaignName1 = "PP_" + $scope.day + $scope.month + $scope.year + "_";
                 $scope.CampaignName = $scope.CampaignName1 + $scope.CampaignName2;
-
+                // selectionMade();
             }
         }]);
     </script>
@@ -281,18 +282,21 @@
                     <div class="row">
                             <div ng-click="editdate=!editdate;"ng-hide="editdate">
                                     <label for="day" style="float: left;text-align: left;padding: 10px;"> {{day}}</label>
-                                   
+                                    
                                 </div>
-                        <select class="form-control" ng-model="selectedday" ng-show="editdate" ng-change="setdate();editdate=!editdate;">
-                            <option ng-repeat="x in days">{{x}}</option>
-                        </select>
+                                <select class="form-control" ng-model="selectedday" ng-show="editdate" ng-change="setdate();">
+                                    <option ng-repeat="x in days">{{x}}</option>
+                                </select>
+                                <input type="button" class="button" value="done" ng-show="editdate" ng-click="selectionMade();">
                         <div ng-click="editmonth=!editmonth;"ng-hide="editmonth">
                                 <label for="month" style="float: left;text-align: left;padding: 10px;"> {{month}}</label>
                                
                             </div>
-                        <select class="form-control" ng-model="month" ng-show="editmonth" ng-change="setdate();editmonth=!editmonth;">
+                        <select class="form-control" ng-model="month" ng-show="editmonth" ng-change="setdate()">
                             <option ng-repeat="x in months">{{x}}</option>
                         </select>
+                        <input type="button" class="button" value="done" ng-show="editmonth" ng-click="selectionMade()">
+                        
                         <label for="year" style="float: left;text-align: left;padding: 10px;">20{{year}}</label>
                         <!-- <select class="form-control" ng-model="year" ng-change="setdate()">
                             <option ng-repeat="x in years">{{x}}</option>
