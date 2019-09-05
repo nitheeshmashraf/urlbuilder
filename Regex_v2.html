@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>URL Replacer</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://unpkg.com/purecss@1.0.0/build/pure-min.css" integrity="sha384-nn4HPE8lTHyVtfCBi5yW9d20FjT8BJwUXyWZT9InLYax14RDjBj46LmSztkmNP9w"
+        crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css?family=Lato|Quicksand|Nunito" rel="stylesheet">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+    <script>
+        var app = angular.module("myApp", [])
+        app.controller("MyCtrl", ['$scope', function ($scope) {
+            $scope.var1 = "this one";
+            $scope.pastedurl = "";
+            $scope.countrycode = "ae";
+            $scope.languagecode = "en";
+            $scope.CampaignName = "cname";
+            $scope.baseutm = "utm_source=App&utm_medium=Push&utm_campaign=";
+            $scope.selectedmetatag = "";
+            $scope.tags = [{ meta: "lmhomeboxae", home: "homeboxstores" },
+            { meta: "lmshoemartae", home: "shoemartstores" },
+            { meta: "lmsplashae", home: "splashfashions" },
+            { meta: "lmhomecentreae", home: "homecentre" },
+            { meta: "lmcentrepointae", home: "centrepointstores" },
+            { meta: "lmlifestyleae", home: "lifestyleshops" },
+            { meta: "lmmaxae", home: "maxfashion" },
+            { meta: "lmbabyshopae", home: "babyshopstores" },
+            { meta: "lmmothercareae", home: "mothercarestores" }];
+
+            $scope.days = [01, 02, 03, 04, 05, 06, 07, 08, 09, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20,21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31];
+            $scope.years = [18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31];
+            $scope.months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov","Dec"];
+
+            var d = new Date();
+            $scope.day = d.getDate();
+            $scope.selectedmonth = $scope.months[d.getMonth()];
+            $scope.year = d.getFullYear() - 2000;
+
+            // $scope.createdurl=$scope.baseutm+"PP_"++$scope.CampaignName+"_"+$scope.countrycode+"_"+$scope.languagecode
+
+
+        }]);
+    </script>
+</head>
+
+<body ng-app="myApp" class="container-fluid">
+    <div ng-controller="MyCtrl">
+        {{var1}}<br/>
+        {{tags[2].home}}<br/>
+        {{baseutm}}PP_{{day}}{{selectedmonth}}{{year}}_{{CampaignName}}_{{countrycode}}_{{languagecode}}<br/>
+    </div>
+</body>
+
+</html>
