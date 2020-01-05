@@ -366,10 +366,25 @@
                     $scope.countryselector();
                     $scope.languageselector();
                     $scope.campaignnameen = "";
+                    $scope.campaignnamepart[4] = angular.uppercase($scope.campaignnamepart[4]);
+                    $scope.campaignnamepart[4] = $scope.campaignnamepart[4].replace(" ", "");
+                    $scope.campaignnamepart[4] = $scope.campaignnamepart[4].replace("_", "");
+                    $scope.campaignnamepart[4] = $scope.campaignnamepart[4].replace(",", "");
+                    $scope.campaignnamepart[4] = $scope.campaignnamepart[4].replace("-", "");
+                    $scope.campaignnamepart[4] = $scope.campaignnamepart[4].replace(".", "");
                     if ($scope.campaignnamepart[6] == "")
                         $scope.lengthofutm = 6;
-                    else
+                    else {
+                        $scope.campaignnamepart[6] = angular.uppercase($scope.campaignnamepart[6]);
+                        $scope.campaignnamepart[6] = $scope.campaignnamepart[6].replace(" ", "");
+
+                        $scope.campaignnamepart[6] = $scope.campaignnamepart[6].replace(" ", "");
+                        $scope.campaignnamepart[6] = $scope.campaignnamepart[6].replace("_", "");
+                        $scope.campaignnamepart[6] = $scope.campaignnamepart[6].replace(",", "");
+                        $scope.campaignnamepart[6] = $scope.campaignnamepart[6].replace("-", "");
+                        $scope.campaignnamepart[6] = $scope.campaignnamepart[6].replace(".", "");
                         $scope.lengthofutm = 7;
+                    }
                     $scope.campaignname = "";
                     for (i = 0; i < $scope.lengthofutm; i++) {
                         $scope.campaignnamepart[2] = "EN";
@@ -399,10 +414,25 @@
                     $scope.countryselector();
                     $scope.languageselector();
                     $scope.campaignnamear = "";
+                    $scope.campaignnamepart[4] = angular.uppercase($scope.campaignnamepart[4]);
+                    $scope.campaignnamepart[4] = $scope.campaignnamepart[4].replace(" ", "");
+                    $scope.campaignnamepart[4] = $scope.campaignnamepart[4].replace("_", "");
+                    $scope.campaignnamepart[4] = $scope.campaignnamepart[4].replace(",", "");
+                    $scope.campaignnamepart[4] = $scope.campaignnamepart[4].replace("-", "");
+                    $scope.campaignnamepart[4] = $scope.campaignnamepart[4].replace(".", "");
                     if ($scope.campaignnamepart[6] == "")
                         $scope.lengthofutm = 6;
-                    else
+                    else {
+                        $scope.campaignnamepart[6] = angular.uppercase($scope.campaignnamepart[6]);
+                        $scope.campaignnamepart[6] = $scope.campaignnamepart[6].replace(" ", "");
+
+                        $scope.campaignnamepart[6] = $scope.campaignnamepart[6].replace(" ", "");
+                        $scope.campaignnamepart[6] = $scope.campaignnamepart[6].replace("_", "");
+                        $scope.campaignnamepart[6] = $scope.campaignnamepart[6].replace(",", "");
+                        $scope.campaignnamepart[6] = $scope.campaignnamepart[6].replace("-", "");
+                        $scope.campaignnamepart[6] = $scope.campaignnamepart[6].replace(".", "");
                         $scope.lengthofutm = 7;
+                    }
                     $scope.campaignname = "";
                     for (i = 0; i < $scope.lengthofutm; i++) {
 
