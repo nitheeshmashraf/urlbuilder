@@ -312,10 +312,26 @@
                     $scope.generateurls();
                     $scope.appenderchange();
                     $scope.campaignname = "";
+                    $scope.campaignnamepart[4] = angular.uppercase($scope.campaignnamepart[4]);
+                    $scope.campaignnamepart[4] = $scope.campaignnamepart[4].replace(" ", "");
+                    $scope.campaignnamepart[4] = $scope.campaignnamepart[4].replace("_", "");
+                    $scope.campaignnamepart[4] = $scope.campaignnamepart[4].replace(",", "");
+                    $scope.campaignnamepart[4] = $scope.campaignnamepart[4].replace("-", "");
+                    $scope.campaignnamepart[4] = $scope.campaignnamepart[4].replace(".", "");
+
                     if ($scope.campaignnamepart[6] == "")
                         $scope.lengthofutm = 6;
-                    else
+                    else {
+                        $scope.campaignnamepart[6] = angular.uppercase($scope.campaignnamepart[6]);
+                        $scope.campaignnamepart[6] = $scope.campaignnamepart[6].replace(" ", "");
+
+                        $scope.campaignnamepart[6] = $scope.campaignnamepart[6].replace(" ", "");
+                        $scope.campaignnamepart[6] = $scope.campaignnamepart[6].replace("_", "");
+                        $scope.campaignnamepart[6] = $scope.campaignnamepart[6].replace(",", "");
+                        $scope.campaignnamepart[6] = $scope.campaignnamepart[6].replace("-", "");
+                        $scope.campaignnamepart[6] = $scope.campaignnamepart[6].replace(".", "");
                         $scope.lengthofutm = 7;
+                    }
                     $scope.campaignname = "";
                     for (i = 0; i < $scope.lengthofutm; i++) {
                         if (i != 2) {
@@ -488,13 +504,13 @@
                 </div>
 
                 <div class="pure-control-group">
-                    <label for="CampaignName">Campaign Name</label>
+                    <label for="CampaignName">Campaign</label>
                     <input type="text" class="form-control" ng-model="campaignnamepart[4]" ng-keyup="generateutmname();"
                         id="utm" placeholder="Enter the campaign name here" />
                 </div>
 
                 <div class="pure-control-group">
-                    <label for="URL">Additional Parameter</label>
+                    <label for="URL">Audience</label>
                     <input type="text" class="form-control" ng-model="campaignnamepart[6]" ng-keyup="generateutmname();"
                         id="countrycode" placeholder="Paste the country code  here" />
                 </div>
@@ -533,7 +549,7 @@
                     </b>
                     <br />
                     <span id="url_ter" for="" style="background-color:rgba(216, 216, 216, 0.5);"
-                        ng-hide="elementhide">{{ Campaign_Url_Ter }}</span>
+                        ng-hide="elementhide">{{ (((Campaign_Url_Ter.replace("/ar/","/en/")).replace("/ar","/en")).replace("?&","?")).replace("/&","/?") }}</span>
                 </div>
                 <br />
                 <div class="pure-controls tooltip" onclick="copyToClipboard('6')">
@@ -544,7 +560,7 @@
                     </b>
                     <br />
                     <span id="launchurl_ter_ar" for="" style="background-color:rgba(216, 216, 216, 0.5);"
-                        ng-hide="elementhide">{{ (Launch_URL_Ter_ar.replace('https', '')).replace("http","") }}</span>
+                        ng-hide="elementhide">{{ (((Launch_URL_Ter_ar.replace('https', '')).replace("http","")).replace("/en/","/ar/")).replace("/en","/ar") }}</span>
                 </div>
                 <br />
 
@@ -555,7 +571,8 @@
                     </b>
                     <br />
                     <span id="url_ter_ar" for="" style="background-color:rgba(216, 216, 216, 0.5);"
-                        ng-hide="elementhide">{{  Campaign_Url_Ter_ar }}</span>
+                        ng-hide="elementhide">
+                        {{ (((Campaign_Url_Ter_ar.replace("/en/","/ar/")).replace("/en","/ar")).replace("?&","?")).replace("/&","/?") }}</span>
                 </div>
 
                 <!-- <div ng-hide="elementhide" class="alert fixed" style="text-align: center;" ng-click="prestine()">
