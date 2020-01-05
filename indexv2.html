@@ -212,13 +212,20 @@
                     "babyshopstores",
                     "mothercarestores"
                 ];
+                $scope.Audiences = [
+                    "ALL",
+                    "MALE",
+                    "FEMALE"
+
+
+                ]
                 // $scope.campaignnamepart[0] = "HC";
                 // $scope.campaignnamepart[1] = "UAE";
                 // $scope.campaignnamepart[2] = "AR";
                 $scope.campaignnamepart[3] = "APPPUSH";
                 $scope.campaignnamepart[4] = "";
                 $scope.campaignnamepart[5] = "PROMO";
-                $scope.campaignnamepart[6] = "";
+                $scope.campaignnamepart[6] = "ALL";
                 $scope.campaignname = "";
                 $scope.campaignnameen = "";
                 $scope.campaignnamear = "";
@@ -349,6 +356,7 @@
 
                     }
                     $scope.campaignname += "]";
+                    $scope.campaignname = angular.uppercase($scope.campaignname);
                     $scope.showinfo();
 
                 }
@@ -380,6 +388,8 @@
 
                     }
                     $scope.campaignnameen += "]";
+                    $scope.campaignnameen = angular.uppercase($scope.campaignnameen);
+
                     $scope.showinfo();
 
                 }
@@ -410,6 +420,8 @@
 
                     }
                     $scope.campaignnamear += "]";
+                    $scope.campaignnamear = angular.uppercase($scope.campaignnamear);
+
                     $scope.showinfo();
 
                 }
@@ -511,8 +523,11 @@
 
                 <div class="pure-control-group">
                     <label for="URL">Audience</label>
-                    <input type="text" class="form-control" ng-model="campaignnamepart[6]" ng-keyup="generateutmname();"
-                        id="countrycode" placeholder="Paste the country code  here" />
+                    <!-- <input type="text" class="form-control" ng-model="campaignnamepart[6]" ng-keyup="generateutmname();"
+                        id="countrycode" placeholder="Paste the country code  here" /> -->
+                    <select class="form-control" ng-model="campaignnamepart[6]" ng-change="generateutmname();">
+                        <option ng-repeat="x in Audiences">{{ x }}</option>
+                    </select>
                 </div>
 
             </div>
