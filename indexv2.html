@@ -309,8 +309,19 @@
                         $scope.elementhide = true;
                     }
                 }
+                $scope.capitalize = function () {
+                    if ($scope.campaignnamepart[6] == "")
+                        $scope.lengthofutm = 6;
+                    else
+                        $scope.lengthofutm = 7;
+
+                    for (i = 0; i < $scope.lengthofutm; i++) {
+                        $scope.campaignnamepart[i] = angular.uppercase($scope.campaignnamepart[i]);
+                    }
+                }
 
                 $scope.generateutmname = function () {
+                    $scope.capitalize();
                     $scope.conceptselector();
                     $scope.countryselector();
                     $scope.languageselector();
