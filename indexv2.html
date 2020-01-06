@@ -462,7 +462,7 @@
                     }
                     $scope.campaignnamear += "]";
                     $scope.campaignnamear = angular.uppercase($scope.campaignnamear);
-
+                    $scope.campaignnamear = $scope.campaignnamear.replace(" ", "");
                     $scope.showinfo();
 
                 }
@@ -627,8 +627,7 @@
                     </b>
                     <br />
                     <span id="url_ter_ar" for="" style="background-color:rgba(216, 216, 216, 0.5);"
-                        ng-hide="elementhide">
-                        {{ (((Campaign_Url_Ter_ar.replace("/en/","/ar/")).replace("/en","/ar")).replace("?&","?")).replace("/&","/?") }}</span>
+                        ng-hide="elementhide">{{ ((((Campaign_Url_Ter.replace("/en/","/ar/")).replace("/en","/ar")).replace("?&","?")).replace("/&","/?")).replace("[EN-","[AR-") }}</span>
                 </div>
 
                 <!-- <div ng-hide="elementhide" class="alert fixed" style="text-align: center;" ng-click="prestine()">
