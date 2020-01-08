@@ -223,6 +223,56 @@
 
 
                 ]
+                $scope.days = [
+                    01,
+                    02,
+                    03,
+                    04,
+                    05,
+                    06,
+                    07,
+                    08,
+                    09,
+                    10,
+                    11,
+                    12,
+                    13,
+                    14,
+                    15,
+                    16,
+                    17,
+                    18,
+                    19,
+                    20,
+                    21,
+                    22,
+                    23,
+                    24,
+                    25,
+                    26,
+                    27,
+                    28,
+                    29,
+                    30,
+                    31
+                ];
+                $scope.months = [
+                    01,
+                    02,
+                    03,
+                    04,
+                    05,
+                    06,
+                    07,
+                    08,
+                    09,
+                    10,
+                    11,
+                    12
+
+                ];
+
+
                 // $scope.campaignnamepart[0] = "HC";
                 // $scope.campaignnamepart[1] = "UAE";
                 // $scope.campaignnamepart[2] = "AR";
@@ -245,15 +295,49 @@
                 $scope.language = [/([/]en)/g, /([/]ar)/g];
                 $scope.appender = "?";
                 $scope.utmmedium = "utm_source=App&utm_medium=Push&utm_campaign=";
+                $scope.utmcontent = "";
+                var d = new Date();
+                $scope.day = d.getDate();
+                $scope.month = d.getMonth() + 1;
+                $scope.year = d.getFullYear() - 2000;
+                $scope.nowday = "";
+                $scope.nowmonth = "";
+                $scope.editdate = false;
+                $scope.datefetch = function () {
 
 
+                    var checkDate = 0;
+                    if ($scope.day < 10 && checkDate != $scope.day) {
+                        $scope.day = "0" + $scope.day;
+                        checkDate = $scope.day;
+                        // todayis = checkDate;
+                    }
+                    var checkMonth = 0;
+
+                    if ($scope.month < 10 && checkMonth != $scope.month) {
+                        $scope.month = "0" + $scope.month;
+                        checkMonth = $scope.month;
+                        // todayis = checkMonth;
+                    }
+                    $scope.month = checkMonth;
+                    console.log($scope.day);
+                    console.log($scope.month);
+                    console.log($scope.year);
+                }
+                $scope.datefetch();
+                $scope.appendutmcontent = function () {
+                    $scope.utmcontent = $scope.day + $scope.month + $scope.year;
+                    console.log($scope.utmcontent);
+                }
+
+                $scope.appendutmcontent();
                 $scope.conceptselector = function () {
                     var countofhometag = 0;
                     while (countofhometag < 9) {
                         var found_metatag = $scope.baseUrl.match(
                             $scope.hometag[countofhometag]
                         );
-                        console.log(found_metatag);
+                        // console.log(found_metatag);
                         if (found_metatag != null) {
                             $scope.Selected_Metatag = $scope.metatag[countofhometag];
                             $scope.campaignnamepart[0] = $scope.concepts[countofhometag];
@@ -272,7 +356,7 @@
                             $scope.country[countofcountry]
                         );
 
-                        console.log(found_country);
+                        // console.log(found_country);
                         if (found_country != null) {
                             $scope.countryccode = $scope.countrycodes[countofcountry];
                             $scope.campaignnamepart[1] = $scope.countrycodeswithname[
@@ -292,7 +376,7 @@
                             $scope.language[countoflanguage]
                         );
 
-                        console.log(found_language);
+                        // console.log(found_language);
                         if (found_language != null) {
                             $scope.languageccode = $scope.languagecodeswithname[countoflanguage];
                             $scope.campaignnamepart[2] = $scope.languagecodeswithname[
@@ -554,6 +638,7 @@
                         <option ng-repeat="x in pushmode">{{ x }}</option>
                     </select>
                 </div>
+
                 <div class="pure-control-group">
                     <label for="URL">URL</label>
                     <input type="text" class="form-control" ng-model="baseUrl" ng-keyup="generateutmname();"
@@ -574,6 +659,29 @@
                         <option ng-repeat="x in Audiences">{{ x }}</option>
                     </select>
                 </div>
+                <!-- <div class="pure-control-group">
+                    <label for="Launch_tag">Day</label>
+                    <select class="form-control" ng-model="day" ng-change="generateutmname();">
+                        <option ng-repeat="x in days">{{ x }}</option>
+                    </select>
+                </div>
+                <div class="pure-control-group">
+                    <label for="Launch_tag">Month</label>
+                    <select class="form-control" ng-model="month" ng-change="generateutmname();">
+                        <option ng-repeat="x in months">{{ x }}</option>
+                    </select>
+                </div> -->
+
+                <div class="pure-control-group">
+                    <label for="content">content</label>
+                    <!-- <input type="text" class="form-control" ng-model="campaignnamepart[6]" ng-keyup="generateutmname();"
+                        id="countrycode" placeholder="Paste the country code  here" /> -->
+                    <input type="text" class="form-control" ng-model="utmcontent" ng-keyup="generateutmname();"
+                        id="urltype" placeholder="Paste the URL here" ng-hide="editdate" />
+                    <!-- <span id="content" for="" style="background-color:rgba(216, 216, 216, 0.5);"
+                        ng-hide="editdate">{{ utmcontent}}</span> -->
+                </div>
+
 
             </div>
 
@@ -609,7 +717,7 @@
                     </b>
                     <br />
                     <span id="url_ter" for="" style="background-color:rgba(216, 216, 216, 0.5);"
-                        ng-hide="elementhide">{{ (((Campaign_Url_Ter.replace("/ar/","/en/")).replace("/ar","/en")).replace("?&","?")).replace("/&","/?") }}</span>
+                        ng-hide="elementhide">{{ (((Campaign_Url_Ter.replace("/ar/","/en/")).replace("/ar","/en")).replace("?&","?")).replace("/&","/?") }}&utm_content={{utmcontent}}</span>
                 </div>
                 <br />
                 <div class="pure-controls tooltip" onclick="copyToClipboard('6')">
@@ -631,7 +739,7 @@
                     </b>
                     <br />
                     <span id="url_ter_ar" for="" style="background-color:rgba(216, 216, 216, 0.5);"
-                        ng-hide="elementhide">{{ ((((Campaign_Url_Ter.replace("/en/","/ar/")).replace("/en","/ar")).replace("?&","?")).replace("/&","/?")).replace("[EN-","[AR-") }}</span>
+                        ng-hide="elementhide">{{ ((((Campaign_Url_Ter.replace("/en/","/ar/")).replace("/en","/ar")).replace("?&","?")).replace("/&","/?")).replace("[EN-","[AR-")}}&utm_content={{utmcontent}}</span>
                 </div>
 
                 <!-- <div ng-hide="elementhide" class="alert fixed" style="text-align: center;" ng-click="prestine()">
