@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>constructor-selector</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+    <script>
+        var app = angular.module("myApp", []);
+        app.controller("MyCtrl", [
+            "$scope",
+            function ($scope) {
+                $scope.fullname = "";
+                $scope.designation = "";
+                $scope.extention = "";
+                $scope.mobilenumber = "";
+
+                $scope.hidethetemplate = false;
+                $scope.checkvalues = function () {
+                    if ($scope.fullname != "" && $scope.designation != "" && $scope.extention != "" &&
+                        $scope.mobilenumber != "") {
+                        $scope.hidethetemplate = true;
+                        alert("Copied to clipboard");
+                    } else {
+                        $scope.hidethetemplate = false;
+                        alert("fill information")
+                    }
+                }
+            }
+        ]);
+    </script>
+</head>
+
+<body ng-app="myApp" class="container-fluid">
+    <div ng-controller="MyCtrl">
+
+        <br>
+        <div style="display: block; justify-content: center; align-items: center; text-align: center;">
+            <h1>Email Signature Generator</h1>
+        </div>
+
+        <br>
+        <div
+            style="margin:auto;display: block; justify-content: center; align-items: center; text-align: center; width: 70%;">
+            <input type="text" class="form-control" ng-model="fullname" placeholder="Enter the full name here" /><br>
+            <input type="text" class="form-control" ng-model="designation"
+                placeholder="Enter your designation here" /><br>
+            <input type="text" class="form-control" ng-model="extention" placeholder="Enter your Extention" /><br>
+            <input type="text" class="form-control" ng-model="mobilenumber"
+                placeholder="Enter your Mobile number" /><br>
+            <!-- 1. Define some markup -->
+            <button ng-show="!hidethetemplate" class="btn btn-default" data-clipboard-target="#signature"
+                ng-click="checkvalues()">Generate</button>
+            <button ng-show="hidethetemplate" class="btn btn-default" data-clipboard-target="#signature"
+                ng-click="checkvalues()">Copy</button>
+        </div>
+
+        <br><br>
+        <div
+            style="margin:auto;display: block; justify-content: center; align-items: center; text-align: center; width: 70%;">
+            <div id="signature" ng-show="hidethetemplate">
+
+                <!-- Content Starts Here -->
+                <table bgcolor=" #FFFFFF" border="0" cellpadding="0" cellspacing="0" width="600px">
+                    <tbody>
+                        <tr>
+                            <td align="left"
+                                style="font-family: 'Lato', Helvetica, Arial, sans-serif; font-size: 24px; color: #000000; text-align: left;  font-weight: 300;">
+                                <b>{{fullname}}</b>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td align="left"
+                                style="font-family: 'Lato', Helvetica, Arial, sans-serif; font-size: 16px;  color: #000000; text-align: left;  font-weight: 300;">
+                                {{designation}}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td align="left"
+                                style="font-family: 'Lato', Helvetica, Arial, sans-serif; font-size: 20px;  color: #000000; text-align: left;  font-weight: 300;">
+
+                                <table bgcolor="#FFFFFF" border="0" cellpadding="0" cellspacing="0" width="100%"
+                                    style="padding-top:5px ;">
+                                    <tbody>
+                                        <tr>
+                                            <td align="left" style="padding-top:10px ;"><img width="20px"
+                                                    src="https://www.landmarkgroup.com/htmlmailer/Babyshop/Email_Campaign/signature/call.png"
+                                                    alt="">
+                                            </td>
+                                            <td align="left" style="padding-top:10px ;">+971 4 517{{extention}}</td>
+
+                                        </tr>
+                                        <tr>
+                                            <td align="left" style="padding-top:10px ;"><img width="20px"
+                                                    src="https://www.landmarkgroup.com/htmlmailer/Babyshop/Email_Campaign/signature/mobile.png"
+                                                    alt="">
+                                            </td>
+                                            <td align="left" style="padding-top:10px ;">+971 {{mobilenumber}}</td>
+                                        </tr>
+                                        <tr>
+                                            <td align="left" style="padding-top:10px ;"><img width="20px"
+                                                    src="https://www.landmarkgroup.com/htmlmailer/Babyshop/Email_Campaign/signature/fax.png"
+                                                    alt="">
+                                            </td>
+                                            <td align="left" style="padding-top:10px ;">+971 4 517550</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </td>
+                            <td align="right"
+                                style="font-family: 'Lato', Helvetica, Arial, sans-serif; font-size: 20px;  color: #000000; text-align: left;  font-weight: 300;">
+                                <table bgcolor="#FFFFFF" border="0" cellpadding="0" cellspacing="0" width="100%"
+                                    style="padding-top:5px ;">
+                                    <tbody>
+                                        <tr>
+                                            <td align="left"
+                                                style="  padding-left:10px ;border-left: 2px solid #797878;">
+                                                <img width="180px"
+                                                    src="https://i1.lmsin.net/website_images/ae/logos/header/logo-babyshop.svg"
+                                                    alt="">
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td align="left"
+                                                style=" border-left: 2px solid #797878; padding-left:10px ; font-family: 'Lato', Helvetica, Arial, sans-serif; font-size: 20px;  color: #000000; text-align: left;  font-weight: 300;">
+                                                Landmark Tower, 25th Floor, Dubai Marina
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td align="left"
+                                                style=" border-left: 2px solid #797878; padding-left:10px ; font-family: 'Lato', Helvetica, Arial, sans-serif; font-size: 20px;  color: #000000; text-align: left;  font-weight: 300;">
+                                                PO Box 25030, Dubai, UAE
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </td>
+                        </tr>
+
+                    </tbody>
+                </table>
+                <table>
+                    <tr>
+                        <td align="left">
+                            <img width="600px"
+                                src="https://www.landmarkgroup.com/htmlmailer/Babyshop/Email_Campaign/signature/signature_footer.png"
+                                alt="">
+                        </td>
+                    </tr>
+                </table>
+                <!-- Content Ends Here -->
+            </div>
+        </div>
+        <!-- 2. Include library -->
+        <script src="https://cdn.rawgit.com/zenorocha/clipboard.js/master/dist/clipboard.min.js"></script>
+
+        <!-- 3. Instantiate clipboard by passing a string selector -->
+        <script>
+            var clipboard = new ClipboardJS('.btn');
+
+            clipboard.on('success', function (e) {
+                console.log(e);
+            });
+
+            clipboard.on('error', function (e) {
+                console.log(e);
+            });
+        </script>
+    </div>
+</body>
+
+</html>
