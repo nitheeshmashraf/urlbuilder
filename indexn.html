@@ -278,6 +278,7 @@
         ];
         $scope.month = $scope.months[d.getMonth()];
         $scope.year = d.getFullYear() - 2000;
+        // $scope.year = 20;
         $scope.Selected_Metatag = "";
         $scope.baseUrl = "";
         var checkDate = 0;
@@ -571,7 +572,7 @@
             </select>
             <input type="button" class="button" value="done" ng-show="editmonth" ng-click="selectionMade()" />
 
-            <label for="year" style="float: left;text-align: left;padding: 10px;">20{{ year }}</label>
+            <label for="year" style="float: left;text-align: left;padding: 10px;">20{{year}}</label>
             <!-- <select class="form-control" ng-model="year" ng-change="setdate()">
                             <option ng-repeat="x in years">{{x}}</option>
                         </select> -->

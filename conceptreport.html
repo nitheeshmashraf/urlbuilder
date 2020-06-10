@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Signature Generator</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <style>
+        [style*="--aspect-ratio"]> :first-child {
+            width: 100%;
+        }
+
+        [style*="--aspect-ratio"]>img {
+            height: auto;
+        }
+
+        @supports (--custom:property) {
+            [style*="--aspect-ratio"] {
+                position: relative;
+            }
+
+            [style*="--aspect-ratio"]::before {
+                content: "";
+                display: block;
+                padding-bottom: calc(100% / (var(--aspect-ratio)));
+            }
+
+            [style*="--aspect-ratio"]> :first-child {
+                position: absolute;
+                top: 0;
+                left: 0;
+                height: 100%;
+            }
+        }
+    </style>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.0rc1/angular.min.js""></script>
+      <script src=" https://ajax.googleapis.com/ajax/libs/angularjs/1.2.0rc1/angular-sanitize.min.js""> </script>
+        <script>
+        var app = angular.module('plunker', ['ngSanitize']);
+
+        app.controller('MainCtrl', function ($scope, $sce) {
+            $scope.trustSrc = function (src) {
+                return $sce.trustAsResourceUrl(src);
+            }
+            $scope.i = 0;
+            $scope.changefn = function (sconcept) {
+                $scope.i = reports.indexOf(sconcept);
+            }
+
+            $scope.reports = [{
+                src: "https://datastudio.google.com/embed/reporting/7a756d42-5190-4e88-be3d-a54891ec0749/page/zYmX",
+                concept: "Max"
+            }, {
+                src: "https://datastudio.google.com/u/1/reporting/1nn0hAnqn5Xi19-DGNZJKyaY-Sp4b2I9d/page/zYmX",
+                concept: "Babyshop"
+            }, {
+                src: "https://datastudio.google.com/u/1/reporting/bc6e4106-b921-49f2-91b3-e5c972c9a6f5/page/zYmX",
+                concept: "Lifestyle"
+            }];
+        });
+    </script>
+</head>
+
+<body ng-app="plunker" class="container-fluid">
+
+    <div ng-controller="MainCtrl">
+        <label for="Launch_tag">Concept</label>
+        <select class="form-control6666
+        " ng-change="changefn(x.concept)">
+            <option ng-repeat="x in reports">{{ x.concept }}</option>
+        </select>
+        <span style="text-align: center;">
+            <h1>{{reports[i].concept}}</h1>
+        </span>
+        <div style="--aspect-ratio: 16/9;">
+            <iframe ng-src={{trustSrc(reports[i].src)}} width="1600" height="900" frameborder="0">
+            </iframe>
+        </div>
+    </div>
+</body>
+
+</html>
