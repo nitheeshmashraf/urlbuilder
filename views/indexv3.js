@@ -126,6 +126,7 @@ app.controller('MyCtrl', [
     $scope.appender = '?';
     $scope.utmmedium = 'utm_source=App&utm_medium=Push&utm_campaign=';
     $scope.utmcontent = '';
+    $scope.utmcampaignaddtional = '';
     // date fetch
     var d = new Date();
     $scope.day = d.getDate();
@@ -235,11 +236,22 @@ app.controller('MyCtrl', [
       $scope.Campaign_Url_Ter = '';
 
       $scope.Launch_URL_Ter = $scope.Selected_Metatag + $scope.baseUrl;
-      $scope.Campaign_Url_Ter =
-        $scope.baseUrl +
-        $scope.appender +
-        $scope.utmmedium +
-        $scope.campaignnameen;
+      if ($scope.utmcampaignaddtional != '') {
+        $scope.Campaign_Url_Ter =
+          $scope.baseUrl +
+          $scope.appender +
+          $scope.utmmedium +
+          $scope.campaignnameen +
+          '-{' +
+          $scope.utmcampaignaddtional +
+          '}';
+      } else {
+        $scope.Campaign_Url_Ter =
+          $scope.baseUrl +
+          $scope.appender +
+          $scope.utmmedium +
+          $scope.campaignnameen;
+      }
     };
 
     $scope.generateutmname = function () {

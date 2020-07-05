@@ -372,13 +372,29 @@
               ng-model="utmcontent"
               ng-keyup="generateutmname();"
               id="urltype"
-              placeholder="Paste the URL here"
+              placeholder="add your content here"
               ng-hide="editdate"
             />
             <!-- <span id="content" for="" style="background-color:rgba(216, 216, 216, 0.5);"
                         ng-hide="editdate">{{ utmcontent}}</span> -->
           </div>
 
+          <br />
+          <div class="pure-control-group">
+            <label for="campaignadditional">Additional Details</label>
+            <!-- <input type="text" class="form-control" ng-model="campaignnamepart[6]" ng-keyup="generateutmname();"
+                        id="countrycode" placeholder="Paste the country code  here" /> -->
+            <input
+              type="text"
+              class="form-control"
+              ng-model="utmcampaignaddtional"
+              ng-keyup="generateutmname();"
+              id="urltype"
+              placeholder="add addtional details here"
+            />
+            <!-- <span id="content" for="" style="background-color:rgba(216, 216, 216, 0.5);"
+                        ng-hide="editdate">{{ utmcontent}}</span> -->
+          </div>
           <br />
           <div
             ng-hide="hideutms"
