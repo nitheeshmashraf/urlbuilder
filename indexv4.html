@@ -1,0 +1,709 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>URL Replacer</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/purecss@1.0.0/build/pure-min.css"
+      integrity="sha384-nn4HPE8lTHyVtfCBi5yW9d20FjT8BJwUXyWZT9InLYax14RDjBj46LmSztkmNP9w"
+      crossorigin="anonymous"
+    />
+    <link
+      href="https://fonts.googleapis.com/css?family=Lato|Quicksand|Nunito"
+      rel="stylesheet"
+    />
+    <style>
+      .switch {
+        position: relative;
+        display: inline-block;
+        width: 60px;
+        height: 34px;
+      }
+
+      .switch input {
+        opacity: 0;
+        width: 0;
+        height: 0;
+      }
+
+      .slider {
+        position: absolute;
+        cursor: pointer;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: #ccc;
+        -webkit-transition: 0.4s;
+        transition: 0.4s;
+      }
+
+      .slider:before {
+        position: absolute;
+        content: '';
+        height: 26px;
+        width: 26px;
+        left: 4px;
+        bottom: 4px;
+        background-color: white;
+        -webkit-transition: 0.4s;
+        transition: 0.4s;
+      }
+
+      input:checked + .slider {
+        background-color: #2196f3;
+      }
+
+      input:focus + .slider {
+        box-shadow: 0 0 1px #2196f3;
+      }
+
+      input:checked + .slider:before {
+        -webkit-transform: translateX(26px);
+        -ms-transform: translateX(26px);
+        transform: translateX(26px);
+      }
+
+      /* Rounded sliders */
+      .slider.round {
+        border-radius: 34px;
+      }
+
+      .slider.round:before {
+        border-radius: 50%;
+      }
+    </style>
+    <style>
+      input,
+      select {
+        width: 80%;
+      }
+
+      .lesssize input {
+        width: 20%;
+      }
+
+      body {
+        font-family: 'Nunito', sans-serif;
+        margin: 0px 100px 0px 100px;
+      }
+
+      span {
+        font-family: 'Lato', sans-serif;
+      }
+
+      .dimlabel {
+        font-weight: 500px;
+        font-size: 2em;
+        color: grey;
+      }
+
+      .fixed {
+        position: fixed;
+        top: 10px;
+        right: 20px;
+        float: right !important;
+      }
+
+      .fixed_id {
+        position: fixed;
+        top: 10px;
+        /* right: 20px; */
+        float: left !important;
+      }
+
+      .fixed_id_r {
+        position: fixed;
+        top: 10px;
+        /* right: 20px; */
+        float: right !important;
+      }
+    </style>
+    <style>
+      .tooltip {
+        position: relative;
+        display: inline-block;
+        /* border-bottom: 1px dotted rgba(129, 227, 145, .5); */
+      }
+
+      .tooltip .tooltiptext {
+        visibility: hidden;
+        width: 200px;
+        background-color: rgba(129, 227, 145, 0.5);
+        color: rgba(63, 59, 50, 0.5);
+        text-align: center;
+        border-radius: 6px;
+        padding: 5px 0;
+        position: absolute;
+        z-index: 1;
+        bottom: 100%;
+        left: 50%;
+        margin-left: -60px;
+
+        /* Fade in tooltip - takes 1 second to go from 0% to 100% opac: */
+        opacity: 0;
+        transition: opacity 1s;
+      }
+
+      .tooltip:hover .tooltiptext {
+        visibility: visible;
+        opacity: 1;
+      }
+    </style>
+    <style>
+      .row select {
+        margin: 2px;
+      }
+
+      .alert {
+        padding: 20px;
+        background-color: rgba(59, 61, 75);
+        color: rgba(223, 218, 218);
+        font-weight: 500;
+        border-radius: 10px;
+      }
+
+      .closebtn:hover {
+        color: black;
+      }
+
+      .button {
+        display: inline-block;
+        padding: 10px;
+        cursor: pointer;
+        text-align: center;
+        text-decoration: none;
+        outline: none;
+        color: #fff;
+        background-color: #4caf50;
+        border: none;
+        border-radius: 15px;
+      }
+    </style>
+    <style>
+      .switch {
+        position: relative;
+        display: inline-block;
+        width: 60px;
+        height: 34px;
+      }
+
+      .switch input {
+        opacity: 0;
+        width: 0;
+        height: 0;
+      }
+
+      .slider {
+        position: absolute;
+        cursor: pointer;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: #ccc;
+        -webkit-transition: 0.4s;
+        transition: 0.4s;
+      }
+
+      .slider:before {
+        position: absolute;
+        content: '';
+        height: 26px;
+        width: 26px;
+        left: 4px;
+        bottom: 4px;
+        background-color: white;
+        -webkit-transition: 0.4s;
+        transition: 0.4s;
+      }
+
+      input:checked + .slider {
+        background-color: #2196f3;
+      }
+
+      input:focus + .slider {
+        box-shadow: 0 0 1px #2196f3;
+      }
+
+      input:checked + .slider:before {
+        -webkit-transform: translateX(26px);
+        -ms-transform: translateX(26px);
+        transform: translateX(26px);
+      }
+
+      /* Rounded sliders */
+      .slider.round {
+        border-radius: 34px;
+      }
+
+      .slider.round:before {
+        border-radius: 50%;
+      }
+    </style>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+    <script src="./views/indexv3.js"></script>
+    <script>
+      function copyToClipboard(flagg) {
+        var text = 'You failed to click on the text';
+        if (flagg == '2') {
+          text = document.getElementById('url').textContent;
+        } else if (flagg == '1') {
+          text = document.getElementById('launchurl').textContent;
+        } else if (flagg == '4') {
+          text = document.getElementById('launchurl_ter').textContent;
+        } else if (flagg == '5') {
+          text = document.getElementById('url_ter').textContent;
+        } else if (flagg == '6') {
+          text = document.getElementById('launchurl_ter_ar').textContent;
+        } else if (flagg == '7') {
+          text = document.getElementById('url_ter_ar').textContent;
+        } else if (flagg == '8') {
+          text = document.getElementById('MyDivID').textContent;
+        } else if (flagg == '9') {
+          text = document.getElementById('MyEID').textContent;
+        } else if (flagg == '10') {
+          text = document.getElementById('url_ter_web_en').textContent;
+        } else if (flagg == '11') {
+          text = document.getElementById('url_ter_web_ar').textContent;
+        } else if (flagg == '12') {
+          text = document.getElementById('url_ter_inapp_en').textContent;
+        } else if (flagg == '13') {
+          text = document.getElementById('url_ter_inapp_ar').textContent;
+        } else {
+          text = document.getElementById('Campaign_Name').textContent;
+        }
+
+        var dummy = document.createElement('input');
+        document.body.appendChild(dummy);
+        dummy.setAttribute('value', text);
+        dummy.select();
+        document.execCommand('copy');
+        document.body.removeChild(dummy);
+      }
+    </script>
+  </head>
+
+  <body ng-app="myApp" class="container-fluid">
+    <div ng-controller="MyCtrl">
+      <!-- {{campaignname}} -->
+
+      <div class="pure-form pure-form-aligned" style="margin-top: -20px;">
+        <div style="text-align: center;">
+          <h1>URL Builder</h1>
+          <div class="pure-control-group">
+            <label for="Launch_tag">Type</label>
+            <select
+              class="form-control"
+              ng-model="campaignnamepart[4]"
+              ng-change="generateutmname();"
+            >
+              <option ng-repeat="x in pushtypes">{{ x }}</option>
+            </select>
+          </div>
+          <div class="pure-control-group">
+            <label for="Launch_tag">Mode</label>
+            <select
+              class="form-control"
+              ng-model="campaignnamepart[5]"
+              ng-change="generateutmname();"
+            >
+              <option ng-repeat="x in pushmode">{{ x }}</option>
+            </select>
+          </div>
+
+          <div class="pure-control-group">
+            <label for="URL">URL</label>
+            <input
+              type="text"
+              class="form-control"
+              ng-model="baseUrl"
+              ng-keyup="generateutmname();"
+              id="urltype"
+              placeholder="Paste the URL here"
+            />
+          </div>
+
+          <div class="pure-control-group">
+            <label for="CampaignName">Campaign</label>
+            <input
+              type="text"
+              class="form-control"
+              ng-model="campaignnamepart[7]"
+              ng-keyup="generateutmname();"
+              id="utm"
+              placeholder="Enter the campaign name here"
+            />
+          </div>
+
+          <div class="pure-control-group">
+            <label for="URL">Audience</label>
+            <!-- <input type="text" class="form-control" ng-model="campaignnamepart[6]" ng-keyup="generateutmname();"
+                        id="countrycode" placeholder="Paste the country code  here" /> -->
+            <select
+              class="form-control"
+              ng-model="campaignnamepart[6]"
+              ng-change="generateutmname();"
+            >
+              <option ng-repeat="x in Audiences">{{ x }}</option>
+            </select>
+          </div>
+          <!-- <div class="pure-control-group">
+                    <label for="Launch_tag">Day</label>
+                    <select class="form-control" ng-model="day" ng-change="generateutmname();">
+                        <option ng-repeat="x in days">{{ x }}</option>
+                    </select>
+                </div>
+                <div class="pure-control-group">
+                    <label for="Launch_tag">Month</label>
+                    <select class="form-control" ng-model="month" ng-change="generateutmname();">
+                        <option ng-repeat="x in months">{{ x }}</option>
+                    </select>
+                </div> -->
+
+          <div class="pure-control-group">
+            <label for="content">content</label>
+            <!-- <input type="text" class="form-control" ng-model="campaignnamepart[6]" ng-keyup="generateutmname();"
+                        id="countrycode" placeholder="Paste the country code  here" /> -->
+            <input
+              type="text"
+              class="form-control"
+              ng-model="utmcontent"
+              ng-keyup="generateutmname();"
+              id="urltype"
+              placeholder="add your content here"
+              ng-hide="editdate"
+            />
+            <!-- <span id="content" for="" style="background-color:rgba(216, 216, 216, 0.5);"
+                        ng-hide="editdate">{{ utmcontent}}</span> -->
+          </div>
+
+          <br />
+          <div class="pure-control-group">
+            <label for="campaignadditional">Additional Details</label>
+            <!-- <input type="text" class="form-control" ng-model="campaignnamepart[6]" ng-keyup="generateutmname();"
+                        id="countrycode" placeholder="Paste the country code  here" /> -->
+            <input
+              type="text"
+              class="form-control"
+              ng-model="utmcampaignaddtional"
+              ng-keyup="generateutmname();"
+              id="urltype"
+              placeholder="add addtional details here"
+            />
+            <!-- <span id="content" for="" style="background-color:rgba(216, 216, 216, 0.5);"
+                        ng-hide="editdate">{{ utmcontent}}</span> -->
+          </div>
+          <br />
+          <div
+            ng-hide="hideutms"
+            style="
+              float: right;
+              vertical-align: middle;
+              align-items: center;
+              display: flex;
+            "
+          >
+            <label for="">show webpush utm &nbsp;</label>
+            <label class="switch">
+              <input
+                type="checkbox"
+                ng-checked="checkedtoggle"
+                ng-click="checkedtoggle=!checkedtoggle"
+              />
+              <span class="slider round"></span>
+            </label>
+          </div>
+        </div>
+        <div ng-hide="!hideinapputms">
+          <div id="utmdisplay" ng-hide="hideutms">
+            <br />
+            <div class="pure-controls tooltip" onclick="copyToClipboard('3')">
+              <b>
+                <label
+                  class="dimlabel"
+                  for="Campaign Name"
+                  class="pure-checkbox"
+                  >Campaign Name</label
+                >
+              </b>
+              <br />
+              <span
+                id="Campaign_Name"
+                for=""
+                style="background-color: rgba(216, 216, 216, 0.5);"
+                ng-hide="elementhide"
+                >{{ campaignname }}{{countrycodeswithnameselected}}</span
+              >
+              <span ng-hide="elementhide" class="tooltiptext"
+                >click on it to copy the campaign name</span
+              >
+            </div>
+            <br />
+
+            <div class="pure-controls tooltip" onclick="copyToClipboard('4')">
+              <span>English</span><br />
+              <b>
+                <label class="dimlabel" for="Campaign URL" class="pure-checkbox"
+                  >Launch_URL_Ter
+                </label>
+              </b>
+              <br />
+              <span
+                id="launchurl_ter"
+                for=""
+                style="background-color: rgba(216, 216, 216, 0.5);"
+                ng-hide="elementhide"
+                >{{ (Launch_URL_Ter.replace('https', '')).replace("http","")
+                }}</span
+              >
+            </div>
+            <br />
+
+            <div class="pure-controls tooltip" onclick="copyToClipboard('5')">
+              <b>
+                <label class="dimlabel" for="Campaign URL" class="pure-checkbox"
+                  >Campaign_Url_Ter
+                </label>
+              </b>
+              <br />
+              <span
+                id="url_ter"
+                for=""
+                style="background-color: rgba(216, 216, 216, 0.5);"
+                ng-hide="elementhide"
+                >{{
+                (((Campaign_Url_Ter.replace("/ar/","/en/")).replace("/ar","/en")).replace("?&","?")).replace("/&","/?")
+                }}&utm_content={{utmcontent}}</span
+              >
+            </div>
+            <br />
+            <div
+              class="pure-controls tooltip"
+              onclick="copyToClipboard('10')"
+              ng-show="checkedtoggle"
+            >
+              <b>
+                <label class="dimlabel" for="Campaign URL" class="pure-checkbox"
+                  >Webpush
+                </label>
+              </b>
+              <br />
+              <span
+                id="url_ter_web_en"
+                for=""
+                style="background-color: rgba(216, 216, 216, 0.5);"
+                ng-hide="elementhide"
+                >{{
+                (((((Campaign_Url_Ter.replace("/ar/","/en/")).replace("/ar","/en")).replace("?&","?")).replace("/&","/?").replace("=App","=Web").replace("-APP","-WEB")).replace("-ALL-","-WEB-"))
+                }}&utm_content={{utmcontent}}</span
+              >
+            </div>
+            <br />
+            <div class="pure-controls tooltip" onclick="copyToClipboard('6')">
+              <span>Arabic</span><br />
+              <b>
+                <label class="dimlabel" for="Campaign URL" class="pure-checkbox"
+                  >Launch_URL_Ter
+                </label>
+              </b>
+              <br />
+              <span
+                id="launchurl_ter_ar"
+                for=""
+                style="background-color: rgba(216, 216, 216, 0.5);"
+                ng-hide="elementhide"
+                >{{ (((Launch_URL_Ter.replace('https',
+                '')).replace("http","")).replace("/en/","/ar/")).replace("/en","/ar")
+                }}</span
+              >
+            </div>
+            <br />
+
+            <div class="pure-controls tooltip" onclick="copyToClipboard('7')">
+              <b>
+                <label class="dimlabel" for="Campaign URL" class="pure-checkbox"
+                  >Campaign_Url_Ter
+                </label>
+              </b>
+              <br />
+              <span
+                id="url_ter_ar"
+                for=""
+                style="background-color: rgba(216, 216, 216, 0.5);"
+                ng-hide="elementhide"
+                >{{
+                ((((Campaign_Url_Ter.replace("/en/","/ar/")).replace("/en","/ar")).replace("?&","?")).replace("/&","/?")).replace("[EN-","[AR-")}}&utm_content={{utmcontent}}</span
+              >
+            </div>
+
+            <div
+              class="pure-controls tooltip"
+              onclick="copyToClipboard('11')"
+              ng-show="checkedtoggle"
+            >
+              <b>
+                <label class="dimlabel" for="Campaign URL" class="pure-checkbox"
+                  >Webpush
+                </label>
+              </b>
+              <br />
+              <span
+                id="url_ter_web_ar"
+                for=""
+                style="background-color: rgba(216, 216, 216, 0.5);"
+                ng-hide="elementhide"
+                >{{
+                ((((((Campaign_Url_Ter.replace("/en/","/ar/")).replace("/en","/ar")).replace("?&","?")).replace("/&","/?").replace("=App","=Web").replace("-APP","-WEB")).replace("[EN-","[AR-")).replace("-ALL-","-WEB-"))
+                }}&utm_content={{utmcontent}}</span
+              >
+            </div>
+            <br />
+
+            <!-- <div ng-hide="elementhide" class="alert fixed" style="text-align: center;" ng-click="prestine()">
+                        <strong>Clear all</strong>
+                    </div>
+                    <span class="alert fixed_id" id="MyDivID" onclick="copyToClipboard('8')">{{ NitDevID }}</span><br>
+                    <span class="alert fixed" id="MyEID" style="top:80px !important;"
+                        onclick="copyToClipboard('9')">{{ NitEID }}</span> -->
+          </div>
+        </div>
+        <div id="webutmdisplay" ng-hide="!hideutms">
+          <br />
+          <div class="pure-controls tooltip" onclick="copyToClipboard('3')">
+            <b>
+              <label class="dimlabel" for="Campaign Name" class="pure-checkbox"
+                >Campaign Name</label
+              >
+            </b>
+            <br />
+            <span
+              id="Campaign_Name"
+              for=""
+              style="background-color: rgba(216, 216, 216, 0.5);"
+              ng-hide="elementhide"
+              >{{ campaignname }}{{countrycodeswithnameselected}}</span
+            >
+            <span ng-hide="elementhide" class="tooltiptext"
+              >click on it to copy the campaign name</span
+            >
+          </div>
+          <br />
+
+          <div class="pure-controls tooltip" onclick="copyToClipboard('4')">
+            <span>English</span><br />
+          </div>
+          <br />
+
+          <div class="pure-controls tooltip" onclick="copyToClipboard('10')">
+            <br />
+            <span
+              id="url_ter_web_en"
+              for=""
+              style="background-color: rgba(216, 216, 216, 0.5);"
+              ng-hide="elementhide"
+              >{{
+              ((((Campaign_Url_Ter.replace("/ar/","/en/")).replace("/ar","/en")).replace("?&","?")).replace("/&","/?").replace("=App","=Web").replace("-APP","-WEB"))
+              }}&utm_content={{utmcontent}}</span
+            >
+          </div>
+          <br />
+          <div class="pure-controls tooltip" onclick="copyToClipboard('6')">
+            <span>Arabic</span><br />
+          </div>
+          <br />
+
+          <div class="pure-controls tooltip" onclick="copyToClipboard('11')">
+            <span
+              id="url_ter_web_ar"
+              for=""
+              style="background-color: rgba(216, 216, 216, 0.5);"
+              ng-hide="elementhide"
+              >{{
+              (((((Campaign_Url_Ter.replace("/en/","/ar/")).replace("/en","/ar")).replace("?&","?")).replace("/&","/?").replace("=App","=Web").replace("-APP","-WEB")).replace("[EN-","[AR-"))
+              }}&utm_content={{utmcontent}}</span
+            >
+          </div>
+          <br />
+
+          <!-- <div ng-hide="elementhide" class="alert fixed" style="text-align: center;" ng-click="prestine()">
+                        <strong>Clear all</strong>
+                    </div>
+                    <span class="alert fixed_id" id="MyDivID" onclick="copyToClipboard('8')">{{ NitDevID }}</span><br>
+                    <span class="alert fixed" id="MyEID" style="top:80px !important;"
+                        onclick="copyToClipboard('9')">{{ NitEID }}</span> -->
+        </div>
+        <div id="inapputmdisplay" ng-hide="hideinapputms">
+          <br />
+          <div class="pure-controls tooltip" onclick="copyToClipboard('3')">
+            <b>
+              <label class="dimlabel" for="Campaign Name" class="pure-checkbox"
+                >Campaign Name</label
+              >
+            </b>
+            <br />
+            <span
+              id="Campaign_Name"
+              for=""
+              style="background-color: rgba(216, 216, 216, 0.5);"
+              ng-hide="elementhide"
+              >{{ campaignname }}{{countrycodeswithnameselected}}</span
+            >
+            <span ng-hide="elementhide" class="tooltiptext"
+              >click on it to copy the campaign name</span
+            >
+          </div>
+          <br />
+
+          <div class="pure-controls tooltip" onclick="copyToClipboard('4')">
+            <span>English</span><br />
+          </div>
+          <br />
+
+          <div class="pure-controls tooltip" onclick="copyToClipboard('12')">
+            <br />
+            <span
+              id="url_ter_inapp_en"
+              for=""
+              style="background-color: rgba(216, 216, 216, 0.5);"
+              ng-hide="elementhide"
+              >{{
+              ((((Launch_URL_Ter_inapp.replace("/ar/","/en/")).replace("/ar","/en")).replace("?&","?")).replace("/&","/?"))
+              }}&utm_content={{utmcontent}}</span
+            >
+          </div>
+          <br />
+          <div class="pure-controls tooltip" onclick="copyToClipboard('6')">
+            <span>Arabic</span><br />
+          </div>
+          <br />
+
+          <div class="pure-controls tooltip" onclick="copyToClipboard('13')">
+            <span
+              id="url_ter_inapp_ar"
+              for=""
+              style="background-color: rgba(216, 216, 216, 0.5);"
+              ng-hide="elementhide"
+              >{{
+              (((((Launch_URL_Ter_inapp.replace("/en/","/ar/")).replace("/en","/ar")).replace("?&","?")).replace("/&","/?")).replace("[EN-","[AR-"))
+              }}&utm_content={{utmcontent}}</span
+            >
+          </div>
+          <br />
+
+          <!-- <div ng-hide="elementhide" class="alert fixed" style="text-align: center;" ng-click="prestine()">
+                        <strong>Clear all</strong>
+                    </div>
+                    <span class="alert fixed_id" id="MyDivID" onclick="copyToClipboard('8')">{{ NitDevID }}</span><br>
+                    <span class="alert fixed" id="MyEID" style="top:80px !important;"
+                        onclick="copyToClipboard('9')">{{ NitEID }}</span> -->
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
